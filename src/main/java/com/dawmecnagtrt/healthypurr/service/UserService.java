@@ -8,13 +8,15 @@ import java.io.IOException;
 import java.util.List;
 
 public interface UserService {
-    List<User> getAll();
+    List<UserSimpleDto> getAll();
+    User getUser(Integer userId);
     UserFullDataDto getUserFullDataById(Integer id);
     UserInfoDto getUserInfoById(Integer id);
     UserSimpleDto getUserSimpleById(Integer id);
     UserFullDataDto getUserFullDataByUsername(String username);
-    UserFullDataDto createUser(CreateUserDto dto, MultipartFile picture) throws Exception;
-    UserFullDataDto updateUserInfo(CreateUserDto dto, Integer id);
+    UserFullDataDto createUser(CreateUserDto dto) throws Exception;
+    UserFullDataDto updateUserInfo(CreateUserDto dto, Integer id) throws Exception;
     UserSimpleDto updateUserPicture (MultipartFile picture, Integer id) throws Exception;
     String deleteUser(Integer id);
+
 }

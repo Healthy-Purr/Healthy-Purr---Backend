@@ -29,10 +29,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserSimpleDto> getAll() {
+        return converter.convertEntityToUserSimpleDto(userRepository.findAll());
     }
-
+    @Transactional(readOnly = true)
+    public User getUser(Integer id){
+        return userRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("User with id: " + id +" not found"));
+    }
     @Override
     @Transactional(readOnly = true)
     public UserFullDataDto getUserFullDataById(Integer id) {
@@ -63,8 +66,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserFullDataDto createUser(CreateUserDto dto, MultipartFile picture) throws Exception {
-        if(!userRepository.existsByUsername(dto.getUsername())){
+    public UserFullDataDto createUser(CreateUserDto dto) throws Exception {
+        if(userRepository.existsByUsername(dto.getUsername())){
             throw new Exception("Username already in use");
         }
         User user = User.builder()
@@ -72,7 +75,6 @@ public class UserServiceImpl implements UserService {
                 .password(dto.getPassword())
                 .name(dto.getName())
                 .lastName(dto.getLastName())
-                .userPic(picture.getBytes())
                 .status(1) // TODO: Define status values
                 .build();
         return converter.convertEntityToUserFullDataDto(userRepository.save(user));
@@ -80,10 +82,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserFullDataDto updateUserInfo(CreateUserDto dto, Integer id) {
+    public UserFullDataDto updateUserInfo(CreateUserDto dto, Integer id) throws Exception {
         Optional<User> user = userRepository.findById(id);
         if(!user.isPresent()){
             throw new EntityNotFoundException("User with id: " + id +" not found");
+        }
+        if(userRepository.existsByUsername(dto.getUsername())){
+            throw new Exception("Username already in use");
         }
         User userUpdated = user.get();
         userUpdated.setUsername(dto.getUsername());
