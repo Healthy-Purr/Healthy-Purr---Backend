@@ -31,41 +31,62 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}/full-data")
-    ApiResponse<UserFullDataDto> getUserFullDataById(@PathVariable Integer userId) throws EntityNotFoundException{
+    public ApiResponse<UserFullDataDto> getUserFullDataById(@PathVariable Integer userId) throws EntityNotFoundException{
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
                 userService.getUserFullDataById(userId));
     }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}/info")
-    ApiResponse<UserInfoDto> getUserInfoById(@PathVariable Integer userId) throws EntityNotFoundException{
+    public ApiResponse<UserInfoDto> getUserInfoById(@PathVariable Integer userId) throws EntityNotFoundException{
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
                 userService.getUserInfoById(userId));
     }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}/simple")
-    ApiResponse<UserSimpleDto> getUserSimpleById(@PathVariable Integer userId) throws EntityNotFoundException{
+    public ApiResponse<UserSimpleDto> getUserSimpleById(@PathVariable Integer userId) throws EntityNotFoundException{
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
                 userService.getUserSimpleById(userId));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping
-    ApiResponse<UserFullDataDto> createUser(@RequestBody @Valid CreateUserDto dto) throws Exception {
+    public ApiResponse<UserFullDataDto> createUser(@RequestBody @Valid CreateUserDto dto) throws Exception {
         return new ApiResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
                 userService.createUser(dto));
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/{userId}")
+    public ApiResponse<UserFullDataDto> UpdateUserById(@RequestBody @Valid CreateUserDto dto, @PathVariable Integer userId) throws Exception{
+        return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
+                userService.updateUserInfo(dto,userId));
+    }
+
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{userId}/picture")
-    ApiResponse<UserSimpleDto> updateUserPicture(@PathVariable Integer userId ,@RequestParam MultipartFile file) throws Exception {
-        return new ApiResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
-                userService.updateUserPicture(file, userId));
+    public ResponseEntity<?> updateUserPicture(@PathVariable Integer userId ,@RequestParam MultipartFile file) throws Exception {
+        Resource imagen = new ByteArrayResource(userService.updateUserPicture(file, userId));
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
     }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}/picture")
     public ResponseEntity<?> getFoto(@PathVariable Integer userId)  {
         User optional = userService.getUser(userId);
-        Resource imagen = new ByteArrayResource(optional.getUserPic());
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
+        if(optional.getUserPic() != null){
+            Resource imagen = new ByteArrayResource(optional.getUserPic());
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
+        }
+        else{
+           return ResponseEntity.ok().body("User does not have picture");
+        }
     }
-    //TODO: Add endpoints
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{userId}")
+    public String deleteUser(@PathVariable Integer userId){
+        return userService.deleteUser(userId);
+    }
+
 }

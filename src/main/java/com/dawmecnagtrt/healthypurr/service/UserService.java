@@ -16,7 +16,7 @@ public interface UserService {
     UserFullDataDto getUserFullDataByUsername(String username);
     UserFullDataDto createUser(CreateUserDto dto) throws Exception;
     UserFullDataDto updateUserInfo(CreateUserDto dto, Integer id) throws Exception;
-    UserSimpleDto updateUserPicture (MultipartFile picture, Integer id) throws Exception;
+    byte[] updateUserPicture (MultipartFile picture, Integer id) throws Exception;
     String deleteUser(Integer id);
 
 }

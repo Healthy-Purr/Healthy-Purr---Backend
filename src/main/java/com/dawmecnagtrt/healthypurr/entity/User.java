@@ -1,15 +1,15 @@
 package com.dawmecnagtrt.healthypurr.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,8 +21,12 @@ public class User extends CommonEntity {
     @Column(name = "user_id", nullable = false)
     private Integer userId;
 
+    @Column(nullable = false)
+    @Size(max = 30)
     private String name;
 
+    @Column(nullable = false)
+    @Size(max = 30)
     private String lastName;
 
     @Lob
@@ -32,11 +36,9 @@ public class User extends CommonEntity {
 
     private Integer status;
 
-    @NotEmpty(message = "The account name can't be empty")
     @Column(name = "username", nullable = false)
     private String username;
 
-    @NotEmpty(message = "The account password can't be empty")
     @Column(name = "password", nullable = false)
     private String password;
 

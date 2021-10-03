@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -87,7 +88,7 @@ public class UserServiceImpl implements UserService {
         if(!user.isPresent()){
             throw new EntityNotFoundException("User with id: " + id +" not found");
         }
-        if(userRepository.existsByUsername(dto.getUsername())){
+        if(userRepository.existsByUsername(dto.getUsername()) && !Objects.equals(user.get().getUsername(), dto.getUsername())){
             throw new Exception("Username already in use");
         }
         User userUpdated = user.get();
@@ -101,7 +102,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserSimpleDto updateUserPicture(MultipartFile picture, Integer id) throws Exception {
+    public byte[] updateUserPicture(MultipartFile picture, Integer id) throws Exception {
         Optional<User> user = userRepository.findById(id);
         if(!user.isPresent()){
             throw new EntityNotFoundException("User with id: " + id +" not found");
@@ -109,7 +110,7 @@ public class UserServiceImpl implements UserService {
         User userUpdated = user.get();
         userUpdated.setUserPic(picture.getBytes());
         userUpdated.setStatus(2);
-        return converter.convertEntityToUserSimpleDto(userRepository.save(userUpdated));
+        return  userRepository.save(userUpdated).getUserPic();
     }
 
     @Override
