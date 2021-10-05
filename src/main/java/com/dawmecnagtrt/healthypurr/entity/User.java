@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @Setter
@@ -42,4 +41,11 @@ public class User extends CommonEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
+
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name= "user_id", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(name= "role_id", referencedColumnName = "role_id")
+    )
+    private List<Role> userRoles;
 }

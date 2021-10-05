@@ -89,4 +89,9 @@ public class UserController {
         return userService.deleteUser(userId);
     }
 
+    @PostMapping("/{userId}")
+    public ResponseEntity<String> assignRole(@PathVariable("userId") Integer userId, @RequestParam("roleId") Integer roleId) {
+        userService.assignRole(userId, roleId);
+        return  ResponseEntity.ok("Assigned");
+    }
 }

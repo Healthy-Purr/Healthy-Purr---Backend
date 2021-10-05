@@ -10,17 +10,23 @@ import com.dawmecnagtrt.healthypurr.repository.UserRepository;
 import com.dawmecnagtrt.healthypurr.service.UserService;
 import com.dawmecnagtrt.healthypurr.util.EntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -78,7 +84,9 @@ public class UserServiceImpl implements UserService {
                 .lastName(dto.getLastName())
                 .status(1) // TODO: Define status values
                 .build();
-        return converter.convertEntityToUserFullDataDto(userRepository.save(user));
+        UserFullDataDto dtoReturn = converter.convertEntityToUserFullDataDto(userRepository.save(user));
+        userRepository.assignRole(dtoReturn.getUserId(),2);
+        return dtoReturn;
     }
 
     @Override
@@ -121,5 +129,21 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.deleteById(id);
         return "User with id: " + id +" deleted";
+    }
+
+    @Override
+    @Transactional
+    public void assignRole(Integer userId, Integer roleId) {
+        userRepository.assignRole(userId, roleId);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findUserByUsername(username).orElseThrow(()-> new EntityNotFoundException("User with username: " + username +" not found"));
+        List<GrantedAuthority> authorities = user.getUserRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
+                .collect(Collectors.toList());
+        System.out.println(authorities);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),true,true,true,true,authorities);
     }
 }
