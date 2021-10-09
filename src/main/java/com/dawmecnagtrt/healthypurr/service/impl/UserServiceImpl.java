@@ -39,8 +39,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public List<UserSimpleDto> getAll() {
         return converter.convertEntityToUserSimpleDto(userRepository.findAll());
     }
+
+    @Override
     @Transactional(readOnly = true)
-    public User getUser(Integer id){
+    public User getUserEntity(Integer id){
         return userRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("User with id: " + id +" not found"));
     }
     @Override

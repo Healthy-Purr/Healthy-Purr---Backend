@@ -1,9 +1,12 @@
 package com.dawmecnagtrt.healthypurr.util;
 
+import com.dawmecnagtrt.healthypurr.dto.Cat.CatDto;
+import com.dawmecnagtrt.healthypurr.dto.Cat.CreateCatDto;
 import com.dawmecnagtrt.healthypurr.dto.User.CreateUserDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserFullDataDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserInfoDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserSimpleDto;
+import com.dawmecnagtrt.healthypurr.entity.Cat;
 import com.dawmecnagtrt.healthypurr.entity.User;
 import org.modelmapper.Converter;
 import org.springframework.core.io.ByteArrayResource;
@@ -24,6 +27,8 @@ public class EntityConverter {
     public Resource TransformToImage(byte[] pic){
         return new ByteArrayResource(pic);
     }
+
+    // User
     public User convertCreateUserToEntity(CreateUserDto dto){
         return modelMapper.map(dto,User.class);
     }
@@ -46,5 +51,13 @@ public class EntityConverter {
                 .collect(Collectors.toList());
     }
 
-    //TODO: fill with other entities
+    // Cat
+    public Cat convertCreateCatToEntity (CreateCatDto dto){ return modelMapper.map(dto,Cat.class);}
+    public CatDto convertEntityToCatDto( Cat entity) { return modelMapper.map(entity,CatDto.class);}
+    public List<CatDto> convertEntityToCatDto(List<Cat> cats) {
+        return cats.stream()
+                .map(this::convertEntityToCatDto)
+                .collect(Collectors.toList());
+    }
+
 }

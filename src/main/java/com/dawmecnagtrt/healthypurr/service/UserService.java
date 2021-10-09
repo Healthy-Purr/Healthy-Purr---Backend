@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface UserService {
     List<UserSimpleDto> getAll();
-    User getUser(Integer userId);
+    User getUserEntity(Integer userId);
     UserFullDataDto getUserFullDataById(Integer id);
     UserInfoDto getUserInfoById(Integer id);
     UserSimpleDto getUserSimpleById(Integer id);

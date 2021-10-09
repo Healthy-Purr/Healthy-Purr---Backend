@@ -74,7 +74,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}/picture")
     public ResponseEntity<?> getFoto(@PathVariable Integer userId)  {
-        User optional = userService.getUser(userId);
+        User optional = userService.getUserEntity(userId);
         if(optional.getUserPic() != null){
             Resource imagen = new ByteArrayResource(optional.getUserPic());
             return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);

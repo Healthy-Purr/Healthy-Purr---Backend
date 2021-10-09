@@ -1,5 +1,6 @@
 package com.dawmecnagtrt.healthypurr.service.impl;
 
+import com.dawmecnagtrt.healthypurr.dto.Role.CreateRoleDto;
 import com.dawmecnagtrt.healthypurr.entity.Role;
 import com.dawmecnagtrt.healthypurr.entity.User;
 import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
@@ -32,27 +33,31 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional
-    public Role createRole(Role role) throws Exception {
-        if(roleRepository.existsByRoleName(role.getRoleName())){
+    public Role createRole(CreateRoleDto dto) throws Exception {
+        if(roleRepository.existsByRoleName(dto.getRoleName())){
             throw new Exception("Role already in use");
         }
+        Role role = Role.builder()
+                .roleName(dto.getRoleName())
+                .roleDescription(dto.getRoleDescription())
+                .build();
         role.setState("CREATED");
         return roleRepository.save(role);
     }
 
     @Override
     @Transactional
-    public Role updateRole(Role role, Integer id) throws Exception {
+    public Role updateRole(CreateRoleDto dto, Integer id) throws Exception {
         Optional<Role> roleDB = roleRepository.findById(id);
         if(!roleDB.isPresent()){
             throw new EntityNotFoundException("Role with id: " + id +" not found");
         }
-        if(roleRepository.existsByRoleName(role.getRoleName()) && !Objects.equals(roleDB.get().getRoleName(), role.getRoleName())){
+        if(roleRepository.existsByRoleName(dto.getRoleName()) && !Objects.equals(roleDB.get().getRoleName(), dto.getRoleName())){
             throw new Exception("Role already in use");
         }
         Role roleUpdated = roleDB.get();
-        roleUpdated.setRoleName(role.getRoleName());
-        roleUpdated.setRoleDescription(role.getRoleDescription());
+        roleUpdated.setRoleName(dto.getRoleName());
+        roleUpdated.setRoleDescription(dto.getRoleDescription());
         roleUpdated.setState("UPDATED");
         return roleRepository.save(roleUpdated);
     }

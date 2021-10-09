@@ -1,5 +1,6 @@
 package com.dawmecnagtrt.healthypurr.controller;
 
+import com.dawmecnagtrt.healthypurr.dto.Role.CreateRoleDto;
 import com.dawmecnagtrt.healthypurr.dto.User.CreateUserDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserFullDataDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserInfoDto;
@@ -43,16 +44,16 @@ public class RoleController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping
-    public ApiResponse<Role> createRole(@RequestBody @Valid Role role) throws Exception {
+    public ApiResponse<Role> createRole(@RequestBody @Valid CreateRoleDto dto) throws Exception {
         return new ApiResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
-                roleService.createRole(role));
+                roleService.createRole(dto));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{roleId}")
-    public ApiResponse<Role> UpdateUserById(@RequestBody @Valid Role role, @PathVariable Integer roleId) throws Exception{
+    public ApiResponse<Role> UpdateRoleById(@RequestBody @Valid CreateRoleDto dto, @PathVariable Integer roleId) throws Exception{
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
-                roleService.updateRole(role,roleId));
+                roleService.updateRole(dto,roleId));
     }
 
     @ResponseStatus(HttpStatus.OK)
