@@ -126,10 +126,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public String deleteUser(Integer id) {
-        if(!userRepository.existsById(id)){
+        Optional<User> user = userRepository.findById(id);
+        if(!user.isPresent()){
             throw new EntityNotFoundException("User with id: " + id +" not found");
         }
-        userRepository.deleteById(id);
+        User userDeleted = user.get();
+        userDeleted.setStatus(3);
         return "User with id: " + id +" deleted";
     }
 

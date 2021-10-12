@@ -71,7 +71,7 @@ public class CatController {
                 catService.updateCat(dto,catId));
     }
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/cats/{catId}")
+    @PutMapping("/cats/{catId}/delete")
     public String deleteCat(@PathVariable Integer catId){
         return catService.deleteCat(catId);
     }

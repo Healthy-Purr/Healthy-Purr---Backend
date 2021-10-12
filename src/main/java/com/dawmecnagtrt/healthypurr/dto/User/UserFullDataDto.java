@@ -1,13 +1,8 @@
 package com.dawmecnagtrt.healthypurr.dto.User;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.dawmecnagtrt.healthypurr.dto.Cat.CatSimpleDto;
 import lombok.Data;
-import org.springframework.core.io.Resource;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.Column;
-import javax.persistence.Lob;
-import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Data
 public class UserFullDataDto {
@@ -18,4 +13,5 @@ public class UserFullDataDto {
     private Integer status;
     private String username;
     private String password;
+    private List<CatSimpleDto> cats;
 }
