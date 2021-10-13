@@ -21,7 +21,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping
 public class CatController {
     @Autowired
     CatService catService;

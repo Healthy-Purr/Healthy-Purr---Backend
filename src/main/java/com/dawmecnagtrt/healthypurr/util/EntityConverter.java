@@ -2,11 +2,13 @@ package com.dawmecnagtrt.healthypurr.util;
 
 import com.dawmecnagtrt.healthypurr.dto.Cat.CatDto;
 import com.dawmecnagtrt.healthypurr.dto.Cat.CreateCatDto;
+import com.dawmecnagtrt.healthypurr.dto.CatAllergic.CatAllergicDto;
 import com.dawmecnagtrt.healthypurr.dto.User.CreateUserDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserFullDataDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserInfoDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserSimpleDto;
 import com.dawmecnagtrt.healthypurr.entity.Cat;
+import com.dawmecnagtrt.healthypurr.entity.CatAllergic;
 import com.dawmecnagtrt.healthypurr.entity.User;
 import org.modelmapper.Converter;
 import org.springframework.core.io.ByteArrayResource;
@@ -60,4 +62,11 @@ public class EntityConverter {
                 .collect(Collectors.toList());
     }
 
+    //CatAllergic
+    public CatAllergicDto convertEntityToCatAllergicDto(CatAllergic entity){ return  modelMapper.map(entity,CatAllergicDto.class);}
+    public List<CatAllergicDto> convertEntityToCatAllergicDto(List<CatAllergic> catAllergics) {
+        return catAllergics.stream()
+                .map(this::convertEntityToCatAllergicDto)
+                .collect(Collectors.toList());
+    }
 }
