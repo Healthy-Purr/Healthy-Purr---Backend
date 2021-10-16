@@ -1,6 +1,6 @@
 package com.dawmecnagtrt.healthypurr.controller;
 
-import com.dawmecnagtrt.healthypurr.dto.CatAllergic.CatAllergicDto;
+import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatAllergicDto;
 import com.dawmecnagtrt.healthypurr.response.ApiResponse;
 import com.dawmecnagtrt.healthypurr.service.CatAllergicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +42,17 @@ public class CatAllergicController {
     public ApiResponse<CatAllergicDto> createCatAllergic(@PathVariable Integer catId, @PathVariable Integer allergicId){
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
                 catAllergicService.createCatAllergic(catId,allergicId));
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/cat-allergics/cat/{catId}/allergic/{allergicId}/activate")
+    public ApiResponse<CatAllergicDto> activateCatAllergic(@PathVariable Integer catId, @PathVariable Integer allergicId){
+        return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
+                catAllergicService.updateCatAllergic(catId,allergicId,1));
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/cat-allergics/cat/{catId}/allergic/{allergicId}/deactivate")
+    public ApiResponse<CatAllergicDto> deactivateCatAllergic(@PathVariable Integer catId, @PathVariable Integer allergicId){
+        return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
+                catAllergicService.updateCatAllergic(catId,allergicId,2));
     }
 }

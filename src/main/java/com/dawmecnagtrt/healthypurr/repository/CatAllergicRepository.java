@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CatAllergicRepository extends JpaRepository<CatAllergic,Integer> {
@@ -14,5 +15,5 @@ public interface CatAllergicRepository extends JpaRepository<CatAllergic,Integer
     List<CatAllergic> findAllByCatCatId(Integer catId);
 
     @Query("SELECT u FROM CatAllergic u WHERE u.cat.catId = :catId AND u.allergic.allergicId = :allergicId")
-    CatAllergic findCatAllergic(@Param("catId") Integer catId, @Param("allergicId") Integer allergicId);
+    Optional<CatAllergic> findCatAllergic(@Param("catId") Integer catId, @Param("allergicId") Integer allergicId);
 }

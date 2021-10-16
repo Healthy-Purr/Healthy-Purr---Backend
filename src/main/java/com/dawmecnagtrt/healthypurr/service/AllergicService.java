@@ -1,6 +1,6 @@
 package com.dawmecnagtrt.healthypurr.service;
 
-import com.dawmecnagtrt.healthypurr.dto.CatProblems.CreateProblemDto;
+import com.dawmecnagtrt.healthypurr.dto.CatProblem.CreateProblemDto;
 import com.dawmecnagtrt.healthypurr.entity.Allergic;
 
 import java.util.List;

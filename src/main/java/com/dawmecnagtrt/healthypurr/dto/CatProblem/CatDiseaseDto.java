@@ -1,13 +1,12 @@
-package com.dawmecnagtrt.healthypurr.dto.CatAllergic;
+package com.dawmecnagtrt.healthypurr.dto.CatProblem;
 
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
-public class CatAllergicDto {
+public class CatDiseaseDto {
     private Integer catId;
-    private Integer allergicId;
+    private Integer diseaseId;
     private Integer status;
 }

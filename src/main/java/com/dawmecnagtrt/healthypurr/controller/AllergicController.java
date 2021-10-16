@@ -1,6 +1,6 @@
 package com.dawmecnagtrt.healthypurr.controller;
 
-import com.dawmecnagtrt.healthypurr.dto.CatProblems.CreateProblemDto;
+import com.dawmecnagtrt.healthypurr.dto.CatProblem.CreateProblemDto;
 import com.dawmecnagtrt.healthypurr.entity.Allergic;
 import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
 import com.dawmecnagtrt.healthypurr.response.ApiResponse;

@@ -1,8 +1,7 @@
 package com.dawmecnagtrt.healthypurr.service.impl;
 
-import com.dawmecnagtrt.healthypurr.dto.CatProblems.CreateProblemDto;
+import com.dawmecnagtrt.healthypurr.dto.CatProblem.CreateProblemDto;
 import com.dawmecnagtrt.healthypurr.entity.Allergic;
-import com.dawmecnagtrt.healthypurr.entity.Disease;
 import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
 import com.dawmecnagtrt.healthypurr.repository.AllergicRepository;
 import com.dawmecnagtrt.healthypurr.service.AllergicService;

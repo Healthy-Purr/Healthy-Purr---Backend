@@ -1,4 +1,4 @@
-package com.dawmecnagtrt.healthypurr.dto.CatProblems;
+package com.dawmecnagtrt.healthypurr.dto.CatProblem;
 
 import lombok.Getter;
 import lombok.Setter;

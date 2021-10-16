@@ -1,9 +1,10 @@
 package com.dawmecnagtrt.healthypurr.service.impl;
 
-import com.dawmecnagtrt.healthypurr.dto.CatAllergic.CatAllergicDto;
+import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatAllergicDto;
 import com.dawmecnagtrt.healthypurr.entity.Allergic;
 import com.dawmecnagtrt.healthypurr.entity.Cat;
 import com.dawmecnagtrt.healthypurr.entity.CatAllergic;
+import com.dawmecnagtrt.healthypurr.entity.CatDisease;
 import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
 import com.dawmecnagtrt.healthypurr.repository.AllergicRepository;
 import com.dawmecnagtrt.healthypurr.repository.CatAllergicRepository;
@@ -48,7 +49,8 @@ public class CatAllergicServiceImpl implements CatAllergicService {
 
     @Override
     public CatAllergicDto getByCatIdAndAllergicId(Integer catId, Integer allergicId) {
-        return converter.convertEntityToCatAllergicDto(catAllergicRepository.findCatAllergic(catId,allergicId));
+        return converter.convertEntityToCatAllergicDto(catAllergicRepository.findCatAllergic(catId,allergicId)
+                .orElseThrow(()-> new EntityNotFoundException("Cat-Allergic with catId: " + catId + " and allergicId:"+ allergicId +"not found")));
     }
 
     @Override
@@ -64,6 +66,14 @@ public class CatAllergicServiceImpl implements CatAllergicService {
         }
         Allergic allergicBD = allergic.get();
         CatAllergic catAllergic = CatAllergic.builder().cat(catBD).allergic(allergicBD).allergicId(allergicId).catId(catId).status(1).build();
+        return converter.convertEntityToCatAllergicDto(catAllergicRepository.save(catAllergic));
+    }
+
+    @Override
+    public CatAllergicDto updateCatAllergic(Integer catId, Integer allergicId, Integer status) {
+        CatAllergic catAllergic = catAllergicRepository.findCatAllergic(catId,allergicId)
+                .orElseThrow(()-> new EntityNotFoundException("Cat-Allergic with catId: " + catId + " and allergicId:"+ allergicId +"not found"));
+        catAllergic.setStatus(status);
         return converter.convertEntityToCatAllergicDto(catAllergicRepository.save(catAllergic));
     }
 }
