@@ -109,10 +109,12 @@ public class CatServiceImpl implements CatService {
     @Override
     @Transactional
     public String deleteCat(Integer id) {
-        if(!catRepository.existsById(id)){
+        Optional<Cat> cat = catRepository.findById(id);
+        if(!cat.isPresent()){
             throw new EntityNotFoundException("Cat with id: " + id +" not found");
         }
-        catRepository.deleteById(id);
+        Cat catDeleted = cat.get();
+        catDeleted.setStatus(3);
         return "Cat with id: " + id +" deleted";
     }
 }

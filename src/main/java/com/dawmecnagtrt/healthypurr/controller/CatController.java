@@ -21,7 +21,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping
 public class CatController {
     @Autowired
     CatService catService;
@@ -71,7 +70,7 @@ public class CatController {
                 catService.updateCat(dto,catId));
     }
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/cats/{catId}")
+    @PutMapping("/cats/{catId}/delete")
     public String deleteCat(@PathVariable Integer catId){
         return catService.deleteCat(catId);
     }

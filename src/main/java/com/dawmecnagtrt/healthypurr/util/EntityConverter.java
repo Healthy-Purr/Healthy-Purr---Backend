@@ -2,16 +2,19 @@ package com.dawmecnagtrt.healthypurr.util;
 
 import com.dawmecnagtrt.healthypurr.dto.Cat.CatDto;
 import com.dawmecnagtrt.healthypurr.dto.Cat.CreateCatDto;
+import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatAllergicDto;
+import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatDiseaseDto;
 import com.dawmecnagtrt.healthypurr.dto.User.CreateUserDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserFullDataDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserInfoDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserSimpleDto;
 import com.dawmecnagtrt.healthypurr.entity.Cat;
+import com.dawmecnagtrt.healthypurr.entity.CatAllergic;
+import com.dawmecnagtrt.healthypurr.entity.CatDisease;
 import com.dawmecnagtrt.healthypurr.entity.User;
 import org.modelmapper.Converter;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -60,4 +63,18 @@ public class EntityConverter {
                 .collect(Collectors.toList());
     }
 
+    //CatAllergic
+    public CatAllergicDto convertEntityToCatAllergicDto(CatAllergic entity){ return  modelMapper.map(entity,CatAllergicDto.class);}
+    public List<CatAllergicDto> convertEntityToCatAllergicDto(List<CatAllergic> catAllergics) {
+        return catAllergics.stream()
+                .map(this::convertEntityToCatAllergicDto)
+                .collect(Collectors.toList());
+    }
+    //CatDisease
+    public CatDiseaseDto convertEntityToCatDiseaseDto(CatDisease entity){ return  modelMapper.map(entity,CatDiseaseDto.class);}
+    public List<CatDiseaseDto> convertEntityToCatDiseaseDto(List<CatDisease> catAllergics) {
+        return catAllergics.stream()
+                .map(this::convertEntityToCatDiseaseDto)
+                .collect(Collectors.toList());
+    }
 }

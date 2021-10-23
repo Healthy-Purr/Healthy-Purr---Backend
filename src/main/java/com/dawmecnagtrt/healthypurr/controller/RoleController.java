@@ -57,7 +57,7 @@ public class RoleController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/{roleId}")
+    @PutMapping("/{roleId}/delete")
     public String deleteRole(@PathVariable Integer roleId){
         return roleService.deleteRole(roleId);
     }

@@ -84,7 +84,7 @@ public class UserController {
         }
     }
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/{userId}")
+    @PutMapping("/{userId}/delete")
     public String deleteUser(@PathVariable Integer userId){
         return userService.deleteUser(userId);
     }
