@@ -15,4 +15,5 @@ public class EvaluationResultDto {
     private String description;
     private BigDecimal accuracyRate;
     private Date createdDate;
+    private String location;
 }

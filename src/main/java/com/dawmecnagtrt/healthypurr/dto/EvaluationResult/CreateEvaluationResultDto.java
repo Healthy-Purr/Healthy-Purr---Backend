@@ -19,4 +19,6 @@ public class CreateEvaluationResultDto {
     @DecimalMax(value = "1.0")
     @DecimalMin(value = "0.0")
     private BigDecimal accuracyRate;
+    @NotEmpty
+    private String location;
 }

@@ -34,6 +34,10 @@ public class EvaluationResult extends CommonEntity{
     @Column(precision=2, scale=1, name = "accuracy_rate")
     private BigDecimal accuracyRate;
 
+    @Column(nullable = false)
+    @Size(max = 30)
+    private String location;
+
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "ev_food_id", nullable = false)
 //    private EvaluatedFood evaluatedFood;

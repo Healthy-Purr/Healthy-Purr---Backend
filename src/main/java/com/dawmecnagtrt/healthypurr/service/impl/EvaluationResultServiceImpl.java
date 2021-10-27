@@ -70,6 +70,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
                 .user(userBD)
                 .accuracyRate(dto.getAccuracyRate())
                 .description(dto.getDescription())
+                .location(dto.getLocation())
                 .build();
         return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.save(evaluationResult));
     }
@@ -88,6 +89,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
         EvaluationResult evaluationResultUpdate = evaluationResult.get();
         evaluationResultUpdate.setCat(catBD);
         evaluationResultUpdate.setAccuracyRate(dto.getAccuracyRate());
+        evaluationResultUpdate.setLocation(dto.getLocation());
         evaluationResultUpdate.setDescription(dto.getDescription());
         return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.save(evaluationResultUpdate));
     }
