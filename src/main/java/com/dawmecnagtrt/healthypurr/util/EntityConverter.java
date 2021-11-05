@@ -4,14 +4,12 @@ import com.dawmecnagtrt.healthypurr.dto.Cat.CatDto;
 import com.dawmecnagtrt.healthypurr.dto.Cat.CreateCatDto;
 import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatAllergicDto;
 import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatDiseaseDto;
+import com.dawmecnagtrt.healthypurr.dto.EvaluationResult.EvaluationResultDto;
 import com.dawmecnagtrt.healthypurr.dto.User.CreateUserDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserFullDataDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserInfoDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserSimpleDto;
-import com.dawmecnagtrt.healthypurr.entity.Cat;
-import com.dawmecnagtrt.healthypurr.entity.CatAllergic;
-import com.dawmecnagtrt.healthypurr.entity.CatDisease;
-import com.dawmecnagtrt.healthypurr.entity.User;
+import com.dawmecnagtrt.healthypurr.entity.*;
 import org.modelmapper.Converter;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -75,6 +73,14 @@ public class EntityConverter {
     public List<CatDiseaseDto> convertEntityToCatDiseaseDto(List<CatDisease> catAllergics) {
         return catAllergics.stream()
                 .map(this::convertEntityToCatDiseaseDto)
+                .collect(Collectors.toList());
+    }
+
+    //EvaluationResult
+    public EvaluationResultDto convertEntityToEvaluationResultDto(EvaluationResult entity){ return  modelMapper.map(entity,EvaluationResultDto.class);}
+    public List<EvaluationResultDto> convertEntityToEvaluationResultDto(List<EvaluationResult> evaluationResultList) {
+        return evaluationResultList.stream()
+                .map(this::convertEntityToEvaluationResultDto)
                 .collect(Collectors.toList());
     }
 }
