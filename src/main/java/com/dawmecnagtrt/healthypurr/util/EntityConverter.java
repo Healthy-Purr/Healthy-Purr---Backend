@@ -5,6 +5,8 @@ import com.dawmecnagtrt.healthypurr.dto.Cat.CreateCatDto;
 import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatAllergicDto;
 import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatDiseaseDto;
 import com.dawmecnagtrt.healthypurr.dto.EvaluationResult.EvaluationResultDto;
+import com.dawmecnagtrt.healthypurr.dto.Meal.MealDto;
+import com.dawmecnagtrt.healthypurr.dto.Schedule.ScheduleDto;
 import com.dawmecnagtrt.healthypurr.dto.User.CreateUserDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserFullDataDto;
 import com.dawmecnagtrt.healthypurr.dto.User.UserInfoDto;
@@ -81,6 +83,22 @@ public class EntityConverter {
     public List<EvaluationResultDto> convertEntityToEvaluationResultDto(List<EvaluationResult> evaluationResultList) {
         return evaluationResultList.stream()
                 .map(this::convertEntityToEvaluationResultDto)
+                .collect(Collectors.toList());
+    }
+
+    //Schedule
+    public ScheduleDto convertEntityToScheduleDto(Schedule entity){ return  modelMapper.map(entity,ScheduleDto.class);}
+    public List<ScheduleDto> convertEntityToScheduleDto(List<Schedule> schedules) {
+        return schedules.stream()
+                .map(this::convertEntityToScheduleDto)
+                .collect(Collectors.toList());
+    }
+
+    //Meal
+    public MealDto convertEntityToMealDto(Meal entity){ return  modelMapper.map(entity,MealDto.class);}
+    public List<MealDto> convertEntityToMealDto(List<Meal> meals) {
+        return meals.stream()
+                .map(this::convertEntityToMealDto)
                 .collect(Collectors.toList());
     }
 }

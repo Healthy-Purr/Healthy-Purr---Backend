@@ -54,4 +54,7 @@ public class Cat extends CommonEntity{
 
     @OneToMany(mappedBy = "cat", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CatDisease> diseases;
+
+    @OneToOne(mappedBy = "cat", cascade = CascadeType.ALL)
+    private Schedule schedule;
 }
