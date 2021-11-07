@@ -62,6 +62,7 @@ public class MealServiceImpl implements MealService {
         System.out.println(minute);
         System.out.println(second);
         Meal meal = Meal.builder()
+                .description(dto.getDescription())
                 .hour(LocalTime.of(hour, minute, second))
                 .quantity(dto.getQuantity())
                 .dry(dto.getDry())
@@ -88,6 +89,7 @@ public class MealServiceImpl implements MealService {
         System.out.println(second);
         Meal mealUpdated = meal.get();
         mealUpdated.setHour(LocalTime.of(hour, minute, second));
+        mealUpdated.setDescription(dto.getDescription());
         mealUpdated.setQuantity(dto.getQuantity());
         mealUpdated.setDry(dto.getDry());
         mealUpdated.setDamp(dto.getDamp());

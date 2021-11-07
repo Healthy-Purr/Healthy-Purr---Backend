@@ -11,6 +11,8 @@ import java.time.LocalTime;
 public class CreateMealDto {
     private String hour;
 
+    private String description;
+
     private String quantity;
 
     private Boolean dry;

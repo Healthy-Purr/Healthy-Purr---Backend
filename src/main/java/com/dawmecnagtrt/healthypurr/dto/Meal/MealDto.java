@@ -10,6 +10,8 @@ import java.time.LocalTime;
 public class MealDto {
     private Integer mealId;
 
+    private String description;
+
     private LocalTime hour;
 
     private String quantity;

@@ -18,6 +18,8 @@ public class Meal extends CommonEntity{
     @Column(name = "meal_id", nullable = false)
     private Integer mealId;
 
+    private String description;
+
     private LocalTime hour;
 
     private String quantity;
