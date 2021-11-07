@@ -1,9 +1,15 @@
 package com.dawmecnagtrt.healthypurr.dto.Meal;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalTime;
 
+@Getter
+@Setter
 public class CreateMealDto {
-    private LocalTime hour;
+    private String hour;
 
     private String quantity;
 

@@ -1,7 +1,12 @@
 package com.dawmecnagtrt.healthypurr.dto.Meal;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalTime;
 
+@Getter
+@Setter
 public class MealDto {
     private Integer mealId;
 
