@@ -24,11 +24,11 @@ public class EvaluationResult extends CommonEntity{
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cat_id", nullable = false)
+    @JoinColumn(name = "cat_id", nullable = true)
     private Cat cat;
 
     @Column(precision=2, scale=1, name = "accuracy_rate")
@@ -39,6 +39,6 @@ public class EvaluationResult extends CommonEntity{
     private String location;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "ev_food_id", nullable = false)
+//    @JoinColumn(name = "ev_food_id", nullable = true)
 //    private EvaluatedFood evaluatedFood;
 }
