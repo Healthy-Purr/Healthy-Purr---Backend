@@ -3,10 +3,12 @@ package com.dawmecnagtrt.healthypurr.service.impl;
 import com.dawmecnagtrt.healthypurr.dto.EvaluationResult.CreateEvaluationResultDto;
 import com.dawmecnagtrt.healthypurr.dto.EvaluationResult.EvaluationResultDto;
 import com.dawmecnagtrt.healthypurr.entity.Cat;
+import com.dawmecnagtrt.healthypurr.entity.EvaluatedFood;
 import com.dawmecnagtrt.healthypurr.entity.EvaluationResult;
 import com.dawmecnagtrt.healthypurr.entity.User;
 import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
 import com.dawmecnagtrt.healthypurr.repository.CatRepository;
+import com.dawmecnagtrt.healthypurr.repository.EvaluatedFoodRepository;
 import com.dawmecnagtrt.healthypurr.repository.EvaluationResultRepository;
 import com.dawmecnagtrt.healthypurr.repository.UserRepository;
 import com.dawmecnagtrt.healthypurr.service.EvaluationResultService;
@@ -28,6 +30,9 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
 
     @Autowired
     private EvaluationResultRepository evaluationResultRepository;
+
+    @Autowired
+    private EvaluatedFoodRepository evaluatedFoodRepository;
 
     @Autowired
     private EntityConverter converter;
@@ -54,6 +59,11 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
     }
 
     @Override
+    public List<EvaluationResultDto> getAllByEvFoodId(Integer evFoodId) {
+        return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.findAllByEvaluatedFoodEvFoodId(evFoodId));
+    }
+
+    @Override
     public EvaluationResultDto createEvaluationResult(CreateEvaluationResultDto dto) throws Exception {
         Optional<User> user = userRepository.findById(dto.getUserId());
         if(!user.isPresent()){
@@ -63,11 +73,17 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
         if(!cat.isPresent()){
             throw new EntityNotFoundException("Cat with id: " + dto.getCatId() +" not found");
         }
+        Optional<EvaluatedFood> evaluatedFood = evaluatedFoodRepository.findById(dto.getCatId());
+        if(!evaluatedFood.isPresent()){
+            throw new EntityNotFoundException("Cat with id: " + dto.getCatId() +" not found");
+        }
+        EvaluatedFood evaluatedFoodBD = evaluatedFood.get();
         User userBD = user.get();
         Cat catBD = cat.get();
         EvaluationResult evaluationResult = EvaluationResult.builder()
                 .cat(catBD)
                 .user(userBD)
+                .evaluatedFood(evaluatedFoodBD)
                 .accuracyRate(dto.getAccuracyRate())
                 .description(dto.getDescription())
                 .location(dto.getLocation())
@@ -85,9 +101,15 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
         if(!cat.isPresent()){
             throw new EntityNotFoundException("Cat with id: " + dto.getCatId() +" not found");
         }
+        Optional<EvaluatedFood> evaluatedFood = evaluatedFoodRepository.findById(dto.getCatId());
+        if(!evaluatedFood.isPresent()){
+            throw new EntityNotFoundException("Cat with id: " + dto.getCatId() +" not found");
+        }
         Cat catBD = cat.get();
+        EvaluatedFood evaluatedFoodBD = evaluatedFood.get();
         EvaluationResult evaluationResultUpdate = evaluationResult.get();
         evaluationResultUpdate.setCat(catBD);
+        evaluationResultUpdate.setEvaluatedFood(evaluatedFoodBD);
         evaluationResultUpdate.setAccuracyRate(dto.getAccuracyRate());
         evaluationResultUpdate.setLocation(dto.getLocation());
         evaluationResultUpdate.setDescription(dto.getDescription());

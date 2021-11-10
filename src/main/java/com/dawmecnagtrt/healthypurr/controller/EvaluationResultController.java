@@ -40,6 +40,11 @@ public class EvaluationResultController {
     public ApiResponse<List<EvaluationResultDto>> getAllEvaluationResultByCatId(@PathVariable Integer catId){return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
             evaluationResultService.getAllByCatId(catId));
     }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/evaluated-foods/{evFoodId}/evaluations-result")
+    public ApiResponse<List<EvaluationResultDto>> getAllEvaluationResultByEvFoodId(@PathVariable Integer evFoodId){return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
+            evaluationResultService.getAllByEvFoodId(evFoodId));
+    }
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/evaluations-result")
