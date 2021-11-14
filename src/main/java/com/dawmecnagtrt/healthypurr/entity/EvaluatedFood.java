@@ -3,6 +3,7 @@ package com.dawmecnagtrt.healthypurr.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "diseases")
+@Table(name = "evaluated_foods")
 public class EvaluatedFood extends CommonEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +27,8 @@ public class EvaluatedFood extends CommonEntity{
 
     @Column(name = "has_taurine", nullable = false)
     private Boolean hasTaurine;
+
+    @OneToMany(mappedBy = "evaluatedFood", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<EvaluationResult> evaluationResults;
 
 }

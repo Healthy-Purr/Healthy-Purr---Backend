@@ -12,6 +12,7 @@ public class EvaluationResultDto {
     private Integer evResultId;
     private Integer userId;
     private Integer catId;
+    private Integer evFoodId;
     private String description;
     private BigDecimal accuracyRate;
     private Date createdDate;
