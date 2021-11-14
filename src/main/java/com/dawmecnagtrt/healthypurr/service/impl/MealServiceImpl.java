@@ -13,6 +13,7 @@ import com.dawmecnagtrt.healthypurr.service.MealService;
 import com.dawmecnagtrt.healthypurr.util.EntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -31,22 +32,26 @@ public class MealServiceImpl implements MealService {
     private EntityConverter converter;
 
     @Override
+    @Transactional(readOnly = true)
     public List<MealDto> getAll() {
         return converter.convertEntityToMealDto(mealRepository.findAll());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public MealDto getMeal(Integer id) {
         return converter.convertEntityToMealDto(mealRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Meal with id: " + id +" not found")));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<MealDto> getAllByScheduleId(Integer scheduleId) {
         return converter.convertEntityToMealDto(mealRepository.findAllByScheduleScheduleId(scheduleId));
     }
 
     @Override
+    @Transactional
     public MealDto createMeal(CreateMealDto dto) throws Exception {
         Optional<Schedule> schedule = scheduleRepository.findById(dto.getScheduleId());
         if(!schedule.isPresent()){
@@ -74,6 +79,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
+    @Transactional
     public MealDto updateMeal(CreateMealDto dto, Integer id) throws Exception {
         Optional<Meal> meal = mealRepository.findById(id);
         if(!meal.isPresent()){

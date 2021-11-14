@@ -4,6 +4,7 @@ import com.dawmecnagtrt.healthypurr.dto.Cat.CatDto;
 import com.dawmecnagtrt.healthypurr.dto.Cat.CreateCatDto;
 import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatAllergicDto;
 import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatDiseaseDto;
+import com.dawmecnagtrt.healthypurr.dto.EvaluatedFood.EvaluatedFoodDto;
 import com.dawmecnagtrt.healthypurr.dto.EvaluationResult.EvaluationResultDto;
 import com.dawmecnagtrt.healthypurr.dto.Meal.MealDto;
 import com.dawmecnagtrt.healthypurr.dto.Schedule.ScheduleDto;
@@ -83,6 +84,13 @@ public class EntityConverter {
     public List<EvaluationResultDto> convertEntityToEvaluationResultDto(List<EvaluationResult> evaluationResultList) {
         return evaluationResultList.stream()
                 .map(this::convertEntityToEvaluationResultDto)
+                .collect(Collectors.toList());
+    }
+    //EvaluatedFood
+    public EvaluatedFoodDto convertEntityToEvaluatedFoodDto(EvaluatedFood entity){ return  modelMapper.map(entity,EvaluatedFoodDto.class);}
+    public List<EvaluatedFoodDto> convertEntityToEvaluatedFoodDto(List<EvaluatedFood> evaluatedFoodList) {
+        return evaluatedFoodList.stream()
+                .map(this::convertEntityToEvaluatedFoodDto)
                 .collect(Collectors.toList());
     }
 

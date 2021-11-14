@@ -3,16 +3,19 @@ package com.dawmecnagtrt.healthypurr.service.impl;
 import com.dawmecnagtrt.healthypurr.dto.EvaluationResult.CreateEvaluationResultDto;
 import com.dawmecnagtrt.healthypurr.dto.EvaluationResult.EvaluationResultDto;
 import com.dawmecnagtrt.healthypurr.entity.Cat;
+import com.dawmecnagtrt.healthypurr.entity.EvaluatedFood;
 import com.dawmecnagtrt.healthypurr.entity.EvaluationResult;
 import com.dawmecnagtrt.healthypurr.entity.User;
 import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
 import com.dawmecnagtrt.healthypurr.repository.CatRepository;
+import com.dawmecnagtrt.healthypurr.repository.EvaluatedFoodRepository;
 import com.dawmecnagtrt.healthypurr.repository.EvaluationResultRepository;
 import com.dawmecnagtrt.healthypurr.repository.UserRepository;
 import com.dawmecnagtrt.healthypurr.service.EvaluationResultService;
 import com.dawmecnagtrt.healthypurr.util.EntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,30 +33,44 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
     private EvaluationResultRepository evaluationResultRepository;
 
     @Autowired
+    private EvaluatedFoodRepository evaluatedFoodRepository;
+
+    @Autowired
     private EntityConverter converter;
 
     @Override
+    @Transactional(readOnly = true)
     public List<EvaluationResultDto> getAll() {
         return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.findAll());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public EvaluationResultDto getEvaluationResult(Integer id) {
         return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Evaluation Result with id: " + id +" not found")));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<EvaluationResultDto> getAllByUserId(Integer userId) {
         return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.findAllByUserUserId(userId));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<EvaluationResultDto> getAllByCatId(Integer catId) {
         return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.findAllByCatCatId(catId));
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<EvaluationResultDto> getAllByEvFoodId(Integer evFoodId) {
+        return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.findAllByEvaluatedFoodEvFoodId(evFoodId));
+    }
+
+    @Override
+    @Transactional
     public EvaluationResultDto createEvaluationResult(CreateEvaluationResultDto dto) throws Exception {
         Optional<User> user = userRepository.findById(dto.getUserId());
         if(!user.isPresent()){
@@ -63,11 +80,17 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
         if(!cat.isPresent()){
             throw new EntityNotFoundException("Cat with id: " + dto.getCatId() +" not found");
         }
+        Optional<EvaluatedFood> evaluatedFood = evaluatedFoodRepository.findById(dto.getCatId());
+        if(!evaluatedFood.isPresent()){
+            throw new EntityNotFoundException("Cat with id: " + dto.getEvFoodId() +" not found");
+        }
+        EvaluatedFood evaluatedFoodBD = evaluatedFood.get();
         User userBD = user.get();
         Cat catBD = cat.get();
         EvaluationResult evaluationResult = EvaluationResult.builder()
                 .cat(catBD)
                 .user(userBD)
+                .evaluatedFood(evaluatedFoodBD)
                 .accuracyRate(dto.getAccuracyRate())
                 .description(dto.getDescription())
                 .location(dto.getLocation())
@@ -76,6 +99,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
     }
 
     @Override
+    @Transactional
     public EvaluationResultDto updateEvaluationResult(CreateEvaluationResultDto dto, Integer id) throws Exception {
         Optional<EvaluationResult> evaluationResult = evaluationResultRepository.findById(id);
         if(!evaluationResult.isPresent()){
@@ -85,9 +109,15 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
         if(!cat.isPresent()){
             throw new EntityNotFoundException("Cat with id: " + dto.getCatId() +" not found");
         }
+        Optional<EvaluatedFood> evaluatedFood = evaluatedFoodRepository.findById(dto.getEvFoodId());
+        if(!evaluatedFood.isPresent()){
+            throw new EntityNotFoundException("Evaluated Food with id: " + dto.getEvFoodId() +" not found");
+        }
         Cat catBD = cat.get();
+        EvaluatedFood evaluatedFoodBD = evaluatedFood.get();
         EvaluationResult evaluationResultUpdate = evaluationResult.get();
         evaluationResultUpdate.setCat(catBD);
+        evaluationResultUpdate.setEvaluatedFood(evaluatedFoodBD);
         evaluationResultUpdate.setAccuracyRate(dto.getAccuracyRate());
         evaluationResultUpdate.setLocation(dto.getLocation());
         evaluationResultUpdate.setDescription(dto.getDescription());

@@ -11,6 +11,7 @@ public interface EvaluationResultService {
     EvaluationResultDto getEvaluationResult(Integer id);
     List<EvaluationResultDto> getAllByUserId(Integer userId);
     List<EvaluationResultDto> getAllByCatId(Integer catId);
+    List<EvaluationResultDto> getAllByEvFoodId(Integer evFoodId);
     EvaluationResultDto createEvaluationResult(CreateEvaluationResultDto dto) throws Exception;
     EvaluationResultDto updateEvaluationResult(CreateEvaluationResultDto dto, Integer id) throws Exception;
 }

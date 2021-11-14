@@ -38,7 +38,7 @@ public class EvaluationResult extends CommonEntity{
     @Size(max = 30)
     private String location;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "ev_food_id", nullable = true)
-//    private EvaluatedFood evaluatedFood;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ev_food_id", nullable = true)
+    private EvaluatedFood evaluatedFood;
 }
