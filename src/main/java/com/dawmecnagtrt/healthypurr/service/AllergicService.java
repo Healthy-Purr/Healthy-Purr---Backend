@@ -10,5 +10,4 @@ public interface AllergicService {
     Allergic getAllergic(Integer id);
     Allergic createAllergic(CreateProblemDto dto) throws Exception;
     Allergic updateAllergic(CreateProblemDto dto, Integer id) throws Exception;
-    String deleteAllergic(Integer id);
 }

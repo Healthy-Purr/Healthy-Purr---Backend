@@ -65,12 +65,18 @@ public class CatAllergicServiceImpl implements CatAllergicService {
             throw new EntityNotFoundException("Allergic with id: " + allergicId +" not found");
         }
         Allergic allergicBD = allergic.get();
-        CatAllergic catAllergic = CatAllergic.builder().cat(catBD).allergic(allergicBD).allergicId(allergicId).catId(catId).status(1).build();
+        CatAllergic catAllergic = CatAllergic.builder()
+                .cat(catBD)
+                .allergic(allergicBD)
+                .allergicId(allergicId)
+                .catId(catId)
+                .status(true)
+                .build();
         return converter.convertEntityToCatAllergicDto(catAllergicRepository.save(catAllergic));
     }
 
     @Override
-    public CatAllergicDto updateCatAllergic(Integer catId, Integer allergicId, Integer status) {
+    public CatAllergicDto updateCatAllergic(Integer catId, Integer allergicId, Boolean status) {
         CatAllergic catAllergic = catAllergicRepository.findCatAllergic(catId,allergicId)
                 .orElseThrow(()-> new EntityNotFoundException("Cat-Allergic with catId: " + catId + " and allergicId:"+ allergicId +"not found"));
         catAllergic.setStatus(status);

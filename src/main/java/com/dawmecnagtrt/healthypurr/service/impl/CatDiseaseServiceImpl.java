@@ -61,11 +61,17 @@ public class CatDiseaseServiceImpl implements CatDiseaseService {
             throw new EntityNotFoundException("Disease with id: " + diseaseId +" not found");
         }
         Disease diseaseBD = disease.get();
-        CatDisease catDisease = CatDisease.builder().cat(catBD).disease(diseaseBD).diseaseId(diseaseId).catId(catId).status(1).build();
+        CatDisease catDisease = CatDisease.builder()
+                .cat(catBD)
+                .disease(diseaseBD)
+                .diseaseId(diseaseId)
+                .catId(catId)
+                .status(true)
+                .build();
         return converter.convertEntityToCatDiseaseDto(catDiseaseRepository.save(catDisease));
     }
     @Override
-    public CatDiseaseDto updateCatDisease(Integer catId, Integer diseaseId, Integer status) {
+    public CatDiseaseDto updateCatDisease(Integer catId, Integer diseaseId, Boolean status) {
         CatDisease catDisease = catDiseaseRepository.findCatDisease(catId,diseaseId)
                 .orElseThrow(()-> new EntityNotFoundException("Cat-Disease with catId: " + catId + " and diseaseId:"+ diseaseId +"not found"));
         catDisease.setStatus(status);

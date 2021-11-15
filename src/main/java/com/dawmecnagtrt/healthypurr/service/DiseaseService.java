@@ -10,5 +10,4 @@ public interface DiseaseService {
     Disease getDisease(Integer id);
     Disease createDisease(CreateProblemDto dto) throws Exception;
     Disease updateDisease(CreateProblemDto dto, Integer id) throws Exception;
-    String deleteDisease(Integer id);
 }

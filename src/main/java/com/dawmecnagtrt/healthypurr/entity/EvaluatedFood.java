@@ -15,8 +15,8 @@ import java.util.List;
 public class EvaluatedFood extends CommonEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ev_food_id", nullable = false)
-    private Integer evFoodId;
+    @Column(name = "evaluated_food_id", nullable = false)
+    private Integer evaluatedFoodId;
 
     private Float protein;
     private Float fat;

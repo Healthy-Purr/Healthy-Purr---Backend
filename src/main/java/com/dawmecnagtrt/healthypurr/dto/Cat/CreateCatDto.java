@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -12,9 +13,7 @@ public class CreateCatDto {
     @Size(min = 2, message = "user name should have at least 2 characters")
     private String name;
 
-    @Min(1)
-    @Max(15)
-    private Integer weight;
+    private BigDecimal weight;
 
     @Min(1)
     @Max(25)

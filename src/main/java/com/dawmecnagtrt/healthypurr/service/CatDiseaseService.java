@@ -10,5 +10,5 @@ public interface CatDiseaseService {
     List<CatDiseaseDto> getAllByCatId(Integer catId);
     CatDiseaseDto getByCatIdAndDiseaseId(Integer catId, Integer diseaseId);
     CatDiseaseDto createCatDisease(Integer catId, Integer diseaseId);
-    CatDiseaseDto updateCatDisease(Integer catId, Integer diseaseId, Integer status);
+    CatDiseaseDto updateCatDisease(Integer catId, Integer diseaseId, Boolean status);
 }

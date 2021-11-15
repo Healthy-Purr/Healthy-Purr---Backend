@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -24,8 +25,8 @@ public class Cat extends CommonEntity{
     @Size(max = 30)
     private String name;
 
-    @Column(nullable = false)
-    private Integer weight;
+    @Column(precision=2, scale=1, nullable = false)
+    private BigDecimal weight;
 
     private Integer age;
 
@@ -40,7 +41,7 @@ public class Cat extends CommonEntity{
     @Column(name = "cat_pic")
     private byte[] catPic;
 
-    private Integer status;
+    private Boolean status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -55,6 +56,6 @@ public class Cat extends CommonEntity{
     @OneToMany(mappedBy = "cat", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CatDisease> diseases;
 
-    @OneToOne(mappedBy = "cat", cascade = CascadeType.ALL)
-    private Schedule schedule;
+    @OneToMany(mappedBy = "cat", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Schedule> schedules;
 }

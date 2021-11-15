@@ -20,5 +20,9 @@ public class Allergic extends CommonEntity{
 
     @Column(nullable = false)
     @Size(max = 30)
+    private String name;
+
+    @Column(nullable = false)
+    @Size(max = 100)
     private String description;
 }

@@ -18,8 +18,8 @@ public class Schedule extends CommonEntity{
     @Column(name = "schedule_id", nullable = false)
     private Integer scheduleId;
 
-    @OneToOne
-    @JoinColumn(name = "cat_id")
+    @ManyToOne
+    @JoinColumn(name = "cat_id", nullable = false)
     private Cat cat;
 
     @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

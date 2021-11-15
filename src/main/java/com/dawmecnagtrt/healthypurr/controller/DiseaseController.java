@@ -42,9 +42,4 @@ public class DiseaseController {
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
                 diseaseService.updateDisease(dto,diseaseId));
     }
-    @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/{diseaseId}/delete")
-    public String deleteDiseaseId(@PathVariable Integer diseaseId){
-        return diseaseService.deleteDisease(diseaseId);
-    }
 }

@@ -43,9 +43,4 @@ public class AllergicController {
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
                 allergicService.updateAllergic(dto,allergicId));
     }
-    @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/{allergicId}/delete")
-    public String deleteUser(@PathVariable Integer allergicId){
-        return allergicService.deleteAllergic(allergicId);
-    }
 }

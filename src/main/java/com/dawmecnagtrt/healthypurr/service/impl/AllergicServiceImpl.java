@@ -30,7 +30,10 @@ public class AllergicServiceImpl implements AllergicService {
 
     @Override
     public Allergic createAllergic(CreateProblemDto dto) throws Exception {
-        Allergic allergic = Allergic.builder().description(dto.getDescription()).build();
+        Allergic allergic = Allergic.builder()
+                .description(dto.getDescription())
+                .name(dto.getName())
+                .build();
         return allergicRepository.save(allergic);
     }
 
@@ -41,12 +44,9 @@ public class AllergicServiceImpl implements AllergicService {
             throw new EntityNotFoundException("Allergic with id: " + id +" not found");
         }
         Allergic allergicUpdated = allergic.get();
+        allergicUpdated.setName(dto.getName());
         allergicUpdated.setDescription(dto.getDescription());
         return allergicRepository.save(allergicUpdated);
     }
 
-    @Override
-    public String deleteAllergic(Integer id) {
-        return null;
-    }
 }

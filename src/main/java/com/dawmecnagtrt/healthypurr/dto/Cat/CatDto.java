@@ -7,16 +7,17 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
 public class CatDto {
     private Integer catId;
     private String name;
-    private Integer weight;
+    private BigDecimal weight;
     private Integer age;
     private Boolean hasDisease;
     private Boolean isAllergic;
-    private Integer status;
+    private Boolean status;
     private Integer userId;
 }
