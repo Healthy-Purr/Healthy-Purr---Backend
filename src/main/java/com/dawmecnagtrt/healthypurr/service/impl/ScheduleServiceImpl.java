@@ -56,7 +56,11 @@ public class ScheduleServiceImpl  implements ScheduleService {
             throw new EntityNotFoundException("Cat with id: " + cat +" not found");
         }
         Cat catBD = cat.get();
-        Schedule schedule = Schedule.builder().cat(catBD).build();
+        Schedule schedule = Schedule.builder()
+                .cat(catBD)
+                .day(dto.getDay())
+                .status(false)
+                .build();
         return converter.convertEntityToScheduleDto(scheduleRepository.save(schedule));
     }
 }

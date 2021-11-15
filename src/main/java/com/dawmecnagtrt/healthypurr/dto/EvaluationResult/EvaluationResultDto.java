@@ -15,6 +15,6 @@ public class EvaluationResultDto {
     private Integer evaluatedFoodId;
     private String description;
     private BigDecimal accuracyRate;
-    private Date createdDate;
+    private Date createdAt;
     private String location;
 }

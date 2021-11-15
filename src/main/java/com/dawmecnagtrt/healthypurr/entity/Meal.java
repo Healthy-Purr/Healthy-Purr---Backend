@@ -3,6 +3,7 @@ package com.dawmecnagtrt.healthypurr.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalTime;
 
 @Getter
@@ -18,17 +19,22 @@ public class Meal extends CommonEntity{
     @Column(name = "meal_id", nullable = false)
     private Integer mealId;
 
+    @Column(nullable = false)
+    @Size(max = 100)
     private String description;
 
     private LocalTime hour;
 
-    private String quantity;
+    @Column(name="is_dry")
+    private Boolean isDry;
 
-    private Boolean dry;
+    @Column(name="is_damp")
+    private Boolean isDamp;
 
-    private Boolean damp;
+    @Column(name="has_medicine")
+    private Boolean hasMedicine;
 
-    private Boolean medicine;
+    private Boolean status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", nullable = false)
