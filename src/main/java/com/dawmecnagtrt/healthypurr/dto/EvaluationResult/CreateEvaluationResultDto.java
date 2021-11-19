@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class CreateEvaluationResultDto {
     private Integer userId;
     private Integer catId;
-    private Integer evFoodId;
+    private Integer evaluatedFoodId;
     @NotEmpty
     private String description;
 

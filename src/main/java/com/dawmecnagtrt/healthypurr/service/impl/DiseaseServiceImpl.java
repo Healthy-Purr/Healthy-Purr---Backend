@@ -30,7 +30,10 @@ public class DiseaseServiceImpl implements DiseaseService {
 
     @Override
     public Disease createDisease(CreateProblemDto dto) throws Exception {
-        Disease disease = Disease.builder().description(dto.getDescription()).build();
+        Disease disease = Disease.builder()
+                .description(dto.getDescription())
+                .name(dto.getName())
+                .build();
         return diseaseRepository.save(disease);
     }
 
@@ -41,12 +44,9 @@ public class DiseaseServiceImpl implements DiseaseService {
             throw new EntityNotFoundException("Disease with id: " + id +" not found");
         }
         Disease diseaseUpdated = disease.get();
+        diseaseUpdated.setName(dto.getName());
         diseaseUpdated.setDescription(dto.getDescription());
         return diseaseRepository.save(diseaseUpdated);
     }
 
-    @Override
-    public String deleteDisease(Integer id) {
-        return null;
-    }
 }

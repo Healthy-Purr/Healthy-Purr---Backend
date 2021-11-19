@@ -3,6 +3,7 @@ package com.dawmecnagtrt.healthypurr.controller;
 import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatDiseaseDto;
 import com.dawmecnagtrt.healthypurr.response.ApiResponse;
 import com.dawmecnagtrt.healthypurr.service.CatDiseaseService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "usePurrApi")
 public class CatDiseaseController {
     @Autowired
     CatDiseaseService catDiseaseService;
@@ -33,7 +35,7 @@ public class CatDiseaseController {
     }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/cat-diseases/cat/{catId}/disease/{diseaseId}")
-    public ApiResponse<CatDiseaseDto> getAllCatDiseaseByDiseaseId(@PathVariable Integer catId, @PathVariable Integer diseaseId){
+    public ApiResponse<CatDiseaseDto> getByDiseaseIdAndCatId(@PathVariable Integer catId, @PathVariable Integer diseaseId){
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
                 catDiseaseService.getByCatIdAndDiseaseId(catId,diseaseId));
     }
@@ -47,11 +49,11 @@ public class CatDiseaseController {
     @PutMapping("/cat-diseases/cat/{catId}/disease/{diseaseId}/activate")
     public ApiResponse<CatDiseaseDto> activateCatDisease(@PathVariable Integer catId, @PathVariable Integer diseaseId){
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
-                catDiseaseService.updateCatDisease(catId,diseaseId,1));
+                catDiseaseService.updateCatDisease(catId,diseaseId,true));
     }
     @PutMapping("/cat-diseases/cat/{catId}/disease/{diseaseId}/deactivate")
     public ApiResponse<CatDiseaseDto> desactivateCatDisease(@PathVariable Integer catId, @PathVariable Integer diseaseId){
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
-                catDiseaseService.updateCatDisease(catId,diseaseId,2));
+                catDiseaseService.updateCatDisease(catId,diseaseId,false));
     }
 }

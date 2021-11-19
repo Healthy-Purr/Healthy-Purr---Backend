@@ -8,6 +8,7 @@ import com.dawmecnagtrt.healthypurr.entity.Cat;
 import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
 import com.dawmecnagtrt.healthypurr.response.ApiResponse;
 import com.dawmecnagtrt.healthypurr.service.CatService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "usePurrApi")
 public class CatController {
     @Autowired
     CatService catService;

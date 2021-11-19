@@ -31,7 +31,7 @@ public class CatDisease extends CommonEntity{
     @JoinColumn(name = "cat_id", nullable = false, insertable = false, updatable = false)
     private Cat cat;
 
-    private Integer status;
+    private Boolean status;
 }
 
 @AllArgsConstructor

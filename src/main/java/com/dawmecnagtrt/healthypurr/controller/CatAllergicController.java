@@ -3,6 +3,7 @@ package com.dawmecnagtrt.healthypurr.controller;
 import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatAllergicDto;
 import com.dawmecnagtrt.healthypurr.response.ApiResponse;
 import com.dawmecnagtrt.healthypurr.service.CatAllergicService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "usePurrApi")
 public class CatAllergicController {
     @Autowired
     CatAllergicService catAllergicService;
@@ -33,7 +35,7 @@ public class CatAllergicController {
     }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/cat-allergics/cat/{catId}/allergic/{allergicId}")
-    public ApiResponse<CatAllergicDto> getAllCatAllergicByAllergicId(@PathVariable Integer catId, @PathVariable Integer allergicId){
+    public ApiResponse<CatAllergicDto> getByAllergicIdAndCatId(@PathVariable Integer catId, @PathVariable Integer allergicId){
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
                 catAllergicService.getByCatIdAndAllergicId(catId,allergicId));
     }
@@ -47,12 +49,12 @@ public class CatAllergicController {
     @PutMapping("/cat-allergics/cat/{catId}/allergic/{allergicId}/activate")
     public ApiResponse<CatAllergicDto> activateCatAllergic(@PathVariable Integer catId, @PathVariable Integer allergicId){
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
-                catAllergicService.updateCatAllergic(catId,allergicId,1));
+                catAllergicService.updateCatAllergic(catId,allergicId,true));
     }
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/cat-allergics/cat/{catId}/allergic/{allergicId}/deactivate")
     public ApiResponse<CatAllergicDto> deactivateCatAllergic(@PathVariable Integer catId, @PathVariable Integer allergicId){
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
-                catAllergicService.updateCatAllergic(catId,allergicId,2));
+                catAllergicService.updateCatAllergic(catId,allergicId,false));
     }
 }

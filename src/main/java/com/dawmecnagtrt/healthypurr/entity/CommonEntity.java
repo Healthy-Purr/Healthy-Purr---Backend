@@ -15,11 +15,11 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 public class CommonEntity implements Serializable {
-    @Column(name = "created_date")
+    @Column(name = "created_at")
     @CreatedDate
-    private Date createdDate;
+    private Date createdAt;
 
-    @Column(name = "last_update_date")
+    @Column(name = "last_update")
     @LastModifiedDate
-    private Date lastUpdateDate;
+    private Date lastUpdate;
 }

@@ -66,7 +66,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
     @Override
     @Transactional(readOnly = true)
     public List<EvaluationResultDto> getAllByEvFoodId(Integer evFoodId) {
-        return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.findAllByEvaluatedFoodEvFoodId(evFoodId));
+        return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.findAllByEvaluatedFoodEvaluatedFoodId(evFoodId));
     }
 
     @Override
@@ -80,9 +80,9 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
         if(!cat.isPresent()){
             throw new EntityNotFoundException("Cat with id: " + dto.getCatId() +" not found");
         }
-        Optional<EvaluatedFood> evaluatedFood = evaluatedFoodRepository.findById(dto.getCatId());
+        Optional<EvaluatedFood> evaluatedFood = evaluatedFoodRepository.findById(dto.getEvaluatedFoodId());
         if(!evaluatedFood.isPresent()){
-            throw new EntityNotFoundException("Cat with id: " + dto.getEvFoodId() +" not found");
+            throw new EntityNotFoundException("Evaluated Food with id: " + dto.getEvaluatedFoodId() +" not found");
         }
         EvaluatedFood evaluatedFoodBD = evaluatedFood.get();
         User userBD = user.get();
@@ -109,9 +109,9 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
         if(!cat.isPresent()){
             throw new EntityNotFoundException("Cat with id: " + dto.getCatId() +" not found");
         }
-        Optional<EvaluatedFood> evaluatedFood = evaluatedFoodRepository.findById(dto.getEvFoodId());
+        Optional<EvaluatedFood> evaluatedFood = evaluatedFoodRepository.findById(dto.getEvaluatedFoodId());
         if(!evaluatedFood.isPresent()){
-            throw new EntityNotFoundException("Evaluated Food with id: " + dto.getEvFoodId() +" not found");
+            throw new EntityNotFoundException("Evaluated Food with id: " + dto.getEvaluatedFoodId() +" not found");
         }
         Cat catBD = cat.get();
         EvaluatedFood evaluatedFoodBD = evaluatedFood.get();

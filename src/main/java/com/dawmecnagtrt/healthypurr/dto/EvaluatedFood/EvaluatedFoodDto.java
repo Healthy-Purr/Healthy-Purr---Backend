@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EvaluatedFoodDto {
-    private Integer evFoodId;
+    private Integer evaluatedFoodId;
     private Float protein;
     private Float fat;
     private Float fiber;

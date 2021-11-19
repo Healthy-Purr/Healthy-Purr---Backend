@@ -3,6 +3,7 @@ package com.dawmecnagtrt.healthypurr.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -18,9 +19,14 @@ public class Schedule extends CommonEntity{
     @Column(name = "schedule_id", nullable = false)
     private Integer scheduleId;
 
-    @OneToOne
-    @JoinColumn(name = "cat_id")
+    @ManyToOne
+    @JoinColumn(name = "cat_id", nullable = false)
     private Cat cat;
+
+    @Column(nullable = false)
+    private Date day;
+
+    private Boolean status;
 
     @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Meal> meals;

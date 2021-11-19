@@ -10,11 +10,12 @@ import java.util.List;
 public class UserFullDataDto {
     private Integer userId;
     private Date createdDate;
+    private Date birthDate;
     private String name;
     private String lastName;
     private String username;
     private String password;
     //private Resource photo;
-    private Integer status;
+    private Boolean status;
     private List<CatSimpleDto> cats;
 }

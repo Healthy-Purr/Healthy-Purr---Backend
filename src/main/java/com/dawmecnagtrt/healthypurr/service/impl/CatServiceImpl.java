@@ -71,7 +71,7 @@ public class CatServiceImpl implements CatService {
                 .hasDisease(dto.getHasDisease())
                 .isAllergic(dto.getIsAllergic())
                 .user(userBD)
-                .status(1)
+                .status(true)
                 .build();
         return converter.convertEntityToCatDto(catRepository.save(cat));
     }
@@ -89,7 +89,6 @@ public class CatServiceImpl implements CatService {
         catUpdated.setAge(dto.getAge());
         catUpdated.setHasDisease(dto.getHasDisease());
         catUpdated.setIsAllergic(dto.getIsAllergic());
-        catUpdated.setStatus(2);
         return converter.convertEntityToCatDto(catRepository.save(catUpdated));
     }
 
@@ -102,7 +101,6 @@ public class CatServiceImpl implements CatService {
         }
         Cat catUpdated = cat.get();
         catUpdated.setCatPic(picture.getBytes());
-        catUpdated.setStatus(2);
         return  catRepository.save(catUpdated).getCatPic();
     }
 
@@ -114,7 +112,7 @@ public class CatServiceImpl implements CatService {
             throw new EntityNotFoundException("Cat with id: " + id +" not found");
         }
         Cat catDeleted = cat.get();
-        catDeleted.setStatus(3);
+        catDeleted.setStatus(false);
         return "Cat with id: " + id +" deleted";
     }
 }

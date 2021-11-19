@@ -10,5 +10,7 @@ import java.util.Date;
 public class ScheduleDto {
     private Integer scheduleId;
     private Integer catId;
-    private Date createdDate;
+    private Date createdAt;
+    private Date day;
+    private Boolean status;
 }

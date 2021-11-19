@@ -16,19 +16,19 @@ import java.math.BigDecimal;
 public class EvaluationResult extends CommonEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ev_result_id", nullable = false)
-    private Integer evResultId;
+    @Column(name = "evaluation_result_id", nullable = false)
+    private Integer evaluationResultId;
 
     @Column(nullable = false)
     @Size(max = 30)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cat_id", nullable = true)
+    @JoinColumn(name = "cat_id", nullable = false)
     private Cat cat;
 
     @Column(precision=2, scale=1, name = "accuracy_rate")
@@ -39,6 +39,6 @@ public class EvaluationResult extends CommonEntity{
     private String location;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ev_food_id", nullable = true)
+    @JoinColumn(name = "evaluated_food_id", nullable = false)
     private EvaluatedFood evaluatedFood;
 }

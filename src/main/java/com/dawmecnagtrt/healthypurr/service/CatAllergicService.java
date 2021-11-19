@@ -10,5 +10,5 @@ public interface CatAllergicService {
     List<CatAllergicDto> getAllByCatId(Integer catId);
     CatAllergicDto getByCatIdAndAllergicId(Integer catId, Integer allergicId);
     CatAllergicDto createCatAllergic(Integer catId, Integer allergicId);
-    CatAllergicDto updateCatAllergic(Integer catId, Integer allergicId, Integer status);
+    CatAllergicDto updateCatAllergic(Integer catId, Integer allergicId, Boolean status);
 }

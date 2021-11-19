@@ -7,5 +7,5 @@ public class UserInfoDto {
     private Integer userId;
     private String username;
     private String password;
-    private Integer status;
+    private Boolean status;
 }

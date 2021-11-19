@@ -9,12 +9,12 @@ import java.util.Date;
 @Getter
 @Setter
 public class EvaluationResultDto {
-    private Integer evResultId;
+    private Integer evaluationResultId;
     private Integer userId;
     private Integer catId;
-    private Integer evFoodId;
+    private Integer evaluatedFoodId;
     private String description;
     private BigDecimal accuracyRate;
-    private Date createdDate;
+    private Date createdAt;
     private String location;
 }

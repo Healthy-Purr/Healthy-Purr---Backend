@@ -10,5 +10,5 @@ import java.util.List;
 public interface EvaluationResultRepository extends JpaRepository<EvaluationResult, Integer> {
     List<EvaluationResult> findAllByUserUserId(Integer userId);
     List<EvaluationResult> findAllByCatCatId(Integer catId);
-    List<EvaluationResult> findAllByEvaluatedFoodEvFoodId(Integer evFoodId);
+    List<EvaluationResult> findAllByEvaluatedFoodEvaluatedFoodId(Integer evFoodId);
 }

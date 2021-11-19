@@ -84,7 +84,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .password(dto.getPassword())
                 .name(dto.getName())
                 .lastName(dto.getLastName())
-                .status(1) // TODO: Define status values
+                .birthDate(dto.getBirthDate())
+                .status(true)
                 .build();
         UserFullDataDto dtoReturn = converter.convertEntityToUserFullDataDto(userRepository.save(user));
         userRepository.assignRole(dtoReturn.getUserId(),2);
@@ -106,7 +107,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userUpdated.setPassword(dto.getPassword());
         userUpdated.setName(dto.getName());
         userUpdated.setLastName(dto.getLastName());
-        userUpdated.setStatus(2);
+        userUpdated.setBirthDate(dto.getBirthDate());
         return converter.convertEntityToUserFullDataDto(userRepository.save(userUpdated));
     }
 
@@ -119,7 +120,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         User userUpdated = user.get();
         userUpdated.setUserPic(picture.getBytes());
-        userUpdated.setStatus(2);
         return  userRepository.save(userUpdated).getUserPic();
     }
 
@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new EntityNotFoundException("User with id: " + id +" not found");
         }
         User userDeleted = user.get();
-        userDeleted.setStatus(3);
+        userDeleted.setStatus(false);
         return "User with id: " + id +" deleted";
     }
 

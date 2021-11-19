@@ -5,6 +5,7 @@ import com.dawmecnagtrt.healthypurr.entity.Disease;
 import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
 import com.dawmecnagtrt.healthypurr.response.ApiResponse;
 import com.dawmecnagtrt.healthypurr.service.DiseaseService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/diseases")
+@SecurityRequirement(name = "usePurrApi")
 public class DiseaseController {
     @Autowired
     DiseaseService diseaseService;
@@ -41,10 +43,5 @@ public class DiseaseController {
     public ApiResponse<Disease> updateAllergicById(@RequestBody @Valid CreateProblemDto dto, @PathVariable Integer diseaseId) throws Exception{
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
                 diseaseService.updateDisease(dto,diseaseId));
-    }
-    @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/{diseaseId}/delete")
-    public String deleteDiseaseId(@PathVariable Integer diseaseId){
-        return diseaseService.deleteDisease(diseaseId);
     }
 }

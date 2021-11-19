@@ -14,13 +14,13 @@ public class MealDto {
 
     private LocalTime hour;
 
-    private String quantity;
+    private Boolean isDry;
 
-    private Boolean dry;
+    private Boolean isDamp;
 
-    private Boolean damp;
-
-    private Boolean medicine;
+    private Boolean hasMedicine;
 
     private Integer scheduleId;
+
+    private Boolean status;
 }

@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -33,7 +34,10 @@ public class User extends CommonEntity {
     @Column(name = "user_pic")
     private byte[] userPic;
 
-    private Integer status;
+    @Column(name = "birth_date", nullable = false)
+    private Date birthDate;
+
+    private Boolean status;
 
     @Column(name = "username", nullable = false)
     private String username;

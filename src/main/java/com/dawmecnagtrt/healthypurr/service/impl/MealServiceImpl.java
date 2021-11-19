@@ -63,19 +63,36 @@ public class MealServiceImpl implements MealService {
         int minute = Integer.parseInt(parts[1]);
         String[] nanoparts = parts[2].split("\\.");
         int second = Integer.parseInt(nanoparts[0]);
+        int nanosecond = Integer.parseInt(nanoparts[1]);
         System.out.println(hour);
         System.out.println(minute);
         System.out.println(second);
+        System.out.println(nanosecond);
         Meal meal = Meal.builder()
                 .description(dto.getDescription())
                 .hour(LocalTime.of(hour, minute, second))
-                .quantity(dto.getQuantity())
-                .dry(dto.getDry())
-                .damp(dto.getDamp())
-                .medicine(dto.getMedicine())
+                .isDry(dto.getIsDry())
+                .isDamp(dto.getIsDamp())
+                .hasMedicine(dto.getHasMedicine())
                 .schedule(scheduleBD)
+                .status(true)
                 .build();
-        return converter.convertEntityToMealDto(mealRepository.save(meal));
+        meal.setStatus(meal.getIsDry() || meal.getIsDamp() || meal.getHasMedicine());
+        Meal mealBD = mealRepository.save(meal);
+        Schedule scheduleaux = mealBD.getSchedule();
+        if(scheduleaux.getMeals().size()>0) {
+            int flag = 0;
+            for (Meal schMeal : scheduleaux.getMeals()) {
+                if (schMeal.getStatus()) {
+                    flag += 1;
+                }
+            }
+            if(flag == 0){
+                scheduleaux.setStatus(false);
+                scheduleRepository.save(scheduleaux);
+            }
+        }
+        return getMeal(mealBD.getMealId());
     }
 
     @Override
@@ -85,21 +102,39 @@ public class MealServiceImpl implements MealService {
         if(!meal.isPresent()){
             throw new EntityNotFoundException("Meal with id: " + id +" not found");
         }
+
+
         String[] parts = dto.getHour().split(":");
         int hour = Integer.parseInt(parts[0]);
         int minute = Integer.parseInt(parts[1]);
         String[] nanoparts = parts[2].split("\\.");
         int second = Integer.parseInt(nanoparts[0]);
+        int nanosecond = Integer.parseInt(nanoparts[1]);
         System.out.println(hour);
         System.out.println(minute);
         System.out.println(second);
+        System.out.println(nanosecond);
         Meal mealUpdated = meal.get();
         mealUpdated.setHour(LocalTime.of(hour, minute, second));
         mealUpdated.setDescription(dto.getDescription());
-        mealUpdated.setQuantity(dto.getQuantity());
-        mealUpdated.setDry(dto.getDry());
-        mealUpdated.setDamp(dto.getDamp());
-        mealUpdated.setMedicine(dto.getMedicine());
-        return converter.convertEntityToMealDto(mealRepository.save(mealUpdated));
+        mealUpdated.setIsDry(dto.getIsDry());
+        mealUpdated.setIsDamp(dto.getIsDamp());
+        mealUpdated.setHasMedicine(dto.getHasMedicine());
+        mealUpdated.setStatus(mealUpdated.getIsDry() || mealUpdated.getIsDamp() || mealUpdated.getHasMedicine());
+        Meal mealBD = mealRepository.save(mealUpdated);
+        Schedule schedule = mealBD.getSchedule();
+        if(schedule.getMeals().size()>0) {
+            int flag = 0;
+            for (Meal schMeal : schedule.getMeals()) {
+                if (schMeal.getStatus()) {
+                    flag += 1;
+                }
+            }
+            if(flag == 0){
+                schedule.setStatus(false);
+                scheduleRepository.save(schedule);
+            }
+        }
+        return getMeal(mealBD.getMealId());
     }
 }
