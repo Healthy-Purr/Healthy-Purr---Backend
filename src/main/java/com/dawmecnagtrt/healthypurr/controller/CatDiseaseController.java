@@ -3,6 +3,7 @@ package com.dawmecnagtrt.healthypurr.controller;
 import com.dawmecnagtrt.healthypurr.dto.CatProblem.CatDiseaseDto;
 import com.dawmecnagtrt.healthypurr.response.ApiResponse;
 import com.dawmecnagtrt.healthypurr.service.CatDiseaseService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "usePurrApi")
 public class CatDiseaseController {
     @Autowired
     CatDiseaseService catDiseaseService;

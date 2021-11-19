@@ -5,6 +5,7 @@ import com.dawmecnagtrt.healthypurr.dto.Meal.MealDto;
 import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
 import com.dawmecnagtrt.healthypurr.response.ApiResponse;
 import com.dawmecnagtrt.healthypurr.service.MealService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "usePurrApi")
 public class MealController {
     @Autowired
     MealService mealService;

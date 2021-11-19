@@ -11,6 +11,7 @@ import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
 import com.dawmecnagtrt.healthypurr.response.ApiResponse;
 import com.dawmecnagtrt.healthypurr.service.RoleService;
 import com.dawmecnagtrt.healthypurr.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -25,6 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/roles")
+@SecurityRequirement(name = "usePurrApi")
 public class RoleController {
 
     @Autowired

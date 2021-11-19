@@ -5,6 +5,7 @@ import com.dawmecnagtrt.healthypurr.entity.Allergic;
 import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
 import com.dawmecnagtrt.healthypurr.response.ApiResponse;
 import com.dawmecnagtrt.healthypurr.service.AllergicService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/allergics")
+@SecurityRequirement(name = "usePurrApi")
 public class AllergicController {
 
     @Autowired

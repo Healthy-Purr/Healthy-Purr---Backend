@@ -72,7 +72,10 @@ public class CatAllergicServiceImpl implements CatAllergicService {
                 .catId(catId)
                 .status(true)
                 .build();
-        return converter.convertEntityToCatAllergicDto(catAllergicRepository.save(catAllergic));
+        CatAllergic catAllergicBD = catAllergicRepository.save(catAllergic);
+        catBD.setIsAllergic(true);
+        catRepository.save(catBD);
+        return converter.convertEntityToCatAllergicDto(catAllergicBD);
     }
 
     @Override

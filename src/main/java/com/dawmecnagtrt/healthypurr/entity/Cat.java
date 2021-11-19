@@ -25,7 +25,7 @@ public class Cat extends CommonEntity{
     @Size(max = 30)
     private String name;
 
-    @Column(precision=2, scale=1, nullable = false)
+    @Column(precision=5, scale=1, nullable = false)
     private BigDecimal weight;
 
     private Integer age;

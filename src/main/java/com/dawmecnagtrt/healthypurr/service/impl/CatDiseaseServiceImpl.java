@@ -68,7 +68,10 @@ public class CatDiseaseServiceImpl implements CatDiseaseService {
                 .catId(catId)
                 .status(true)
                 .build();
-        return converter.convertEntityToCatDiseaseDto(catDiseaseRepository.save(catDisease));
+        CatDisease catDiseaseBD = catDiseaseRepository.save(catDisease);
+        catBD.setHasDisease(true);
+        catRepository.save(catBD);
+        return converter.convertEntityToCatDiseaseDto(catDiseaseBD);
     }
     @Override
     public CatDiseaseDto updateCatDisease(Integer catId, Integer diseaseId, Boolean status) {

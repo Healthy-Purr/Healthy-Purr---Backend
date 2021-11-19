@@ -78,7 +78,21 @@ public class MealServiceImpl implements MealService {
                 .status(true)
                 .build();
         meal.setStatus(meal.getIsDry() || meal.getIsDamp() || meal.getHasMedicine());
-        return converter.convertEntityToMealDto(mealRepository.save(meal));
+        Meal mealBD = mealRepository.save(meal);
+        Schedule scheduleaux = mealBD.getSchedule();
+        if(scheduleaux.getMeals().size()>0) {
+            int flag = 0;
+            for (Meal schMeal : scheduleaux.getMeals()) {
+                if (schMeal.getStatus()) {
+                    flag += 1;
+                }
+            }
+            if(flag == 0){
+                scheduleaux.setStatus(false);
+                scheduleRepository.save(scheduleaux);
+            }
+        }
+        return getMeal(mealBD.getMealId());
     }
 
     @Override
@@ -109,15 +123,17 @@ public class MealServiceImpl implements MealService {
         mealUpdated.setStatus(mealUpdated.getIsDry() || mealUpdated.getIsDamp() || mealUpdated.getHasMedicine());
         Meal mealBD = mealRepository.save(mealUpdated);
         Schedule schedule = mealBD.getSchedule();
-        int flag = 0;
-        for (Meal schMeal : schedule.getMeals()) {
-            if (schMeal.getStatus()) {
-                flag += 1;
+        if(schedule.getMeals().size()>0) {
+            int flag = 0;
+            for (Meal schMeal : schedule.getMeals()) {
+                if (schMeal.getStatus()) {
+                    flag += 1;
+                }
             }
-        }
-        if(flag == 0){
-            schedule.setStatus(false);
-            scheduleRepository.save(schedule);
+            if(flag == 0){
+                schedule.setStatus(false);
+                scheduleRepository.save(schedule);
+            }
         }
         return getMeal(mealBD.getMealId());
     }
