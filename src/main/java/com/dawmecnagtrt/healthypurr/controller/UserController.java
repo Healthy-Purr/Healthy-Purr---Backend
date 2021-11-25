@@ -65,7 +65,7 @@ public class UserController {
     @PostMapping("/admin")
     public ApiResponse<UserFullDataDto> createAdmin(@RequestBody @Valid CreateUserDto dto) throws Exception {
         return new ApiResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
-                userService.createUser(dto,2));
+                userService.createUser(dto,1));
     }
 
     @ResponseStatus(HttpStatus.OK)
