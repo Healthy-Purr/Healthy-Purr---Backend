@@ -99,7 +99,7 @@ public class UserController {
     }
 
     @PostMapping("/{userId}")
-//    @SecurityRequirement(name = "usePurrApi")
+    @SecurityRequirement(name = "usePurrApi")
     public ResponseEntity<String> assignRole(@PathVariable("userId") Integer userId, @RequestParam("roleId") Integer roleId) {
         userService.assignRole(userId, roleId);
         return  ResponseEntity.ok("Assigned");

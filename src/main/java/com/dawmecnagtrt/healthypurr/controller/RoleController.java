@@ -26,7 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/roles")
-//@SecurityRequirement(name = "usePurrApi")
+@SecurityRequirement(name = "usePurrApi")
 public class RoleController {
 
     @Autowired
