@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public UserFullDataDto createUser(CreateUserDto dto) throws Exception {
+    public UserFullDataDto createUser(CreateUserDto dto, Integer type) throws Exception {
         if(userRepository.existsByUsername(dto.getUsername())){
             throw new Exception("Username already in use");
         }
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .status(true)
                 .build();
         UserFullDataDto dtoReturn = converter.convertEntityToUserFullDataDto(userRepository.save(user));
-        userRepository.assignRole(dtoReturn.getUserId(),2);
+        userRepository.assignRole(dtoReturn.getUserId(),type);
         return dtoReturn;
     }
 
