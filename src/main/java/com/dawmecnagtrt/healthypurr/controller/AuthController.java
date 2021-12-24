@@ -3,6 +3,7 @@ package com.dawmecnagtrt.healthypurr.controller;
 import com.dawmecnagtrt.healthypurr.config.JwtUtil;
 import com.dawmecnagtrt.healthypurr.dto.Auth.AuthRequest;
 import com.dawmecnagtrt.healthypurr.dto.Auth.AuthResponse;
+import com.dawmecnagtrt.healthypurr.dto.User.UserFullDataDto;
 import com.dawmecnagtrt.healthypurr.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,8 @@ public class AuthController {
             throw new Exception("Incorrect username or password", e);
         }
         final UserDetails userDetails = userServiceImpl.loadUserByUsername(authenticationRequest.getUsername());
+        final UserFullDataDto user = userServiceImpl.getUserFullDataByUsername(authenticationRequest.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthResponse(jwt));
+        return ResponseEntity.ok(new AuthResponse(jwt, user));
     }
 }
