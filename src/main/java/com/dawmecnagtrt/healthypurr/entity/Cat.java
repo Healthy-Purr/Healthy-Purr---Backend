@@ -30,6 +30,8 @@ public class Cat extends CommonEntity{
 
     private Integer age;
 
+    private Boolean gender;
+
     @Column(name = "has_disease", nullable = false)
     private Boolean hasDisease;
 

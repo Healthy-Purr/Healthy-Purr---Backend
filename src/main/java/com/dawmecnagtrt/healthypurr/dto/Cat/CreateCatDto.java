@@ -24,4 +24,7 @@ public class CreateCatDto {
 
     @NotNull
     private Boolean isAllergic;
+
+    @NotNull
+    private Boolean gender;
 }

@@ -12,6 +12,7 @@ public class CatSimpleDto {
     private String name;
     private BigDecimal weight;
     private Integer age;
+    private Boolean gender;
     private Boolean hasDisease;
     private Boolean isAllergic;
 }

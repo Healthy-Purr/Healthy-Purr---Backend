@@ -68,6 +68,7 @@ public class CatServiceImpl implements CatService {
                 .name(dto.getName())
                 .weight(dto.getWeight())
                 .age(dto.getAge())
+                .gender(dto.getGender())
                 .hasDisease(dto.getHasDisease())
                 .isAllergic(dto.getIsAllergic())
                 .user(userBD)
@@ -87,6 +88,7 @@ public class CatServiceImpl implements CatService {
         catUpdated.setName(dto.getName());
         catUpdated.setWeight(dto.getWeight());
         catUpdated.setAge(dto.getAge());
+        catUpdated.setGender(dto.getGender());
         catUpdated.setHasDisease(dto.getHasDisease());
         catUpdated.setIsAllergic(dto.getIsAllergic());
         return converter.convertEntityToCatDto(catRepository.save(catUpdated));
