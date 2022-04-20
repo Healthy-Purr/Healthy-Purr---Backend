@@ -43,9 +43,8 @@ public class ScheduleServiceImpl  implements ScheduleService {
     }
 
     @Override
-    public ScheduleDto getScheduleByCatId(Integer catId) {
-        return converter.convertEntityToScheduleDto(scheduleRepository.findScheduleByCatCatId(catId)
-                .orElseThrow(()-> new EntityNotFoundException("Schedule with Cat Id: " + catId +" not found")));
+    public List<ScheduleDto> getSchedulesByCatId(Integer catId) {
+        return converter.convertEntityToScheduleDto(scheduleRepository.findScheduleByCatCatId(catId));
     }
 
     @Override

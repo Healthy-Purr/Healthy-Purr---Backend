@@ -5,7 +5,6 @@ import com.dawmecnagtrt.healthypurr.dto.Schedule.ScheduleDto;
 import com.dawmecnagtrt.healthypurr.exception.EntityNotFoundException;
 import com.dawmecnagtrt.healthypurr.response.ApiResponse;
 import com.dawmecnagtrt.healthypurr.service.ScheduleService;
-import com.dawmecnagtrt.healthypurr.service.impl.ScheduleServiceImpl;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,10 +33,10 @@ public class ScheduleController {
                 scheduleService.getSchedule(scheduleId));
     }
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/cats/{catId}/schedule")
-    public ApiResponse<ScheduleDto> getScheduleByCatId(@PathVariable Integer catId) throws EntityNotFoundException {
+    @GetMapping("/cats/{catId}/schedules")
+    public ApiResponse<List<ScheduleDto>> getSchedulesByCatId(@PathVariable Integer catId) throws EntityNotFoundException {
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
-                scheduleService.getScheduleByCatId(catId));
+                scheduleService.getSchedulesByCatId(catId));
     }
 
     @ResponseStatus(HttpStatus.OK)

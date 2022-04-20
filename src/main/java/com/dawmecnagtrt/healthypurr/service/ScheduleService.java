@@ -8,6 +8,6 @@ import java.util.List;
 public interface ScheduleService {
     List<ScheduleDto> getAll();
     ScheduleDto getSchedule(Integer id);
-    ScheduleDto getScheduleByCatId(Integer catId);
+    List<ScheduleDto> getSchedulesByCatId(Integer catId);
     ScheduleDto createSchedule(CreateScheduleDto dto) throws Exception;
 }
