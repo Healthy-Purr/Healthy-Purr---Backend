@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,7 +23,8 @@ public class EvaluationResultController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/evaluations-result")
-    public ApiResponse<List<EvaluationResultDto>> getAllEvaluationResult(){return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
+    public ApiResponse<List<EvaluationResultDto>> getAllEvaluationResult(){
+        return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
             evaluationResultService.getAll()); }
 
     @ResponseStatus(HttpStatus.OK)
@@ -34,7 +36,8 @@ public class EvaluationResultController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/users/{userId}/evaluations-result")
-    public ApiResponse<List<EvaluationResultDto>> getAllEvaluationResultByUserId(@PathVariable Integer userId){return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
+    public ApiResponse<List<EvaluationResultDto>> getAllEvaluationResultByUserId(@PathVariable Integer userId){
+        return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
             evaluationResultService.getAllByUserId(userId));
     }
     @ResponseStatus(HttpStatus.OK)
@@ -50,9 +53,9 @@ public class EvaluationResultController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/evaluations-result")
-    public ApiResponse<EvaluationResultDto> createEvaluationResult(@RequestBody @Valid CreateEvaluationResultDto dto) throws Exception {
+    public ApiResponse<EvaluationResultDto> createEvaluationResult(@RequestBody @Valid CreateEvaluationResultDto dto, @RequestParam MultipartFile file) throws Exception {
         return new ApiResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
-                evaluationResultService.createEvaluationResult(dto));
+                evaluationResultService.createEvaluationResult(dto, file));
     }
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/evaluations-result/{id}")

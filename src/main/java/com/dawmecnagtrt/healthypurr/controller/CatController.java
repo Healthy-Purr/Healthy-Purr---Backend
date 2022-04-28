@@ -41,6 +41,7 @@ public class CatController {
     @GetMapping("/users/{userId}/cats")
     public ApiResponse<List<CatDto>> getAllCatsByUserId(@PathVariable Integer userId){return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
             catService.getAllByUserId(userId)); }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/cats/{catId}/picture")
     public ResponseEntity<?> getFoto(@PathVariable Integer catId)  {

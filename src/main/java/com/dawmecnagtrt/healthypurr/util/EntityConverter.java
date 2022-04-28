@@ -80,7 +80,10 @@ public class EntityConverter {
     }
 
     //EvaluationResult
-    public EvaluationResultDto convertEntityToEvaluationResultDto(EvaluationResult entity){ return  modelMapper.map(entity,EvaluationResultDto.class);}
+    public EvaluationResultDto convertEntityToEvaluationResultDto(EvaluationResult entity){
+        return  modelMapper.map(entity,EvaluationResultDto.class);
+    }
+
     public List<EvaluationResultDto> convertEntityToEvaluationResultDto(List<EvaluationResult> evaluationResultList) {
         return evaluationResultList.stream()
                 .map(this::convertEntityToEvaluationResultDto)

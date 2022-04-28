@@ -16,6 +16,7 @@ import com.dawmecnagtrt.healthypurr.util.EntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -71,7 +72,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
 
     @Override
     @Transactional
-    public EvaluationResultDto createEvaluationResult(CreateEvaluationResultDto dto) throws Exception {
+    public EvaluationResultDto createEvaluationResult(CreateEvaluationResultDto dto, MultipartFile file) throws Exception {
         Optional<User> user = userRepository.findById(dto.getUserId());
         if(!user.isPresent()){
             throw new EntityNotFoundException("User with id: " + dto.getUserId() +" not found");
@@ -94,6 +95,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
                 .accuracyRate(dto.getAccuracyRate())
                 .description(dto.getDescription())
                 .location(dto.getLocation())
+                .evaluationPic( !file.isEmpty() ? file.getBytes(): null)
                 .build();
         return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.save(evaluationResult));
     }
