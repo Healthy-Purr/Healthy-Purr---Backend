@@ -16,7 +16,9 @@ import com.dawmecnagtrt.healthypurr.util.EntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -122,6 +124,26 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
         evaluationResultUpdate.setLocation(dto.getLocation());
         evaluationResultUpdate.setDescription(dto.getDescription());
         return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.save(evaluationResultUpdate));
+    }
+
+    @Override
+    public EvaluationResultDto updateEvaluationResultPicture(MultipartFile file, Integer id) throws IOException {
+        Optional<EvaluationResult> evaluationResult = evaluationResultRepository.findById(id);
+        if(!evaluationResult.isPresent()){
+            throw new EntityNotFoundException("Evaluation Result with id: " + id +" not found");
+        }
+        EvaluationResult evaluationResultUpdate = evaluationResult.get();
+        if(!file.isEmpty()){
+            evaluationResultUpdate.setEvaluationPic(file.getBytes());
+        }
+        return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.save(evaluationResultUpdate));
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public EvaluationResult getEvaluationResultEntity(Integer id) {
+        return evaluationResultRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Evaluation Result with id: " + id +" not found"));
     }
 
 }

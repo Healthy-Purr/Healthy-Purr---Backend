@@ -1,5 +1,6 @@
 package com.dawmecnagtrt.healthypurr.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,4 +42,9 @@ public class EvaluationResult extends CommonEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "evaluated_food_id", nullable = false)
     private EvaluatedFood evaluatedFood;
+
+    @Lob
+    @JsonIgnore
+    @Column(name = "evaluation_pic")
+    private byte[] evaluationPic;
 }
