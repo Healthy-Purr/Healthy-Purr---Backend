@@ -140,9 +140,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
         return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.save(evaluationResultUpdate));
     }
 
-
     @Override
-    @Transactional(readOnly = true)
     public EvaluationResult getEvaluationResultEntity(Integer id) {
         return evaluationResultRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Evaluation Result with id: " + id +" not found"));
     }
