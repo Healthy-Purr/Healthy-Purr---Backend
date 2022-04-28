@@ -73,7 +73,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
 
     @Override
     @Transactional
-    public EvaluationResultDto createEvaluationResult(CreateEvaluationResultDto dto) throws Exception {
+    public EvaluationResultDto createEvaluationResult(CreateEvaluationResultDto dto, MultipartFile file) throws Exception {
         Optional<User> user = userRepository.findById(dto.getUserId());
         if(!user.isPresent()){
             throw new EntityNotFoundException("User with id: " + dto.getUserId() +" not found");
@@ -96,6 +96,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
                 .accuracyRate(dto.getAccuracyRate())
                 .description(dto.getDescription())
                 .location(dto.getLocation())
+                .evaluationPic( !file.isEmpty() ? file.getBytes(): null)
                 .build();
         return converter.convertEntityToEvaluationResultDto(evaluationResultRepository.save(evaluationResult));
     }

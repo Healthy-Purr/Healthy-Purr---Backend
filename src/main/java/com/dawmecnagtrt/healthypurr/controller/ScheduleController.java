@@ -20,7 +20,6 @@ public class ScheduleController {
     @Autowired
     ScheduleService scheduleService;
 
-
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/schedules")
     public ApiResponse<List<ScheduleDto>> getAllSchedules(){return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",

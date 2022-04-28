@@ -29,7 +29,8 @@ public class EvaluationResultController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/evaluations-result")
-    public ApiResponse<List<EvaluationResultDto>> getAllEvaluationResult(){return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
+    public ApiResponse<List<EvaluationResultDto>> getAllEvaluationResult(){
+        return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
             evaluationResultService.getAll()); }
 
     @ResponseStatus(HttpStatus.OK)
@@ -41,7 +42,8 @@ public class EvaluationResultController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/users/{userId}/evaluations-result")
-    public ApiResponse<List<EvaluationResultDto>> getAllEvaluationResultByUserId(@PathVariable Integer userId){return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
+    public ApiResponse<List<EvaluationResultDto>> getAllEvaluationResultByUserId(@PathVariable Integer userId){
+        return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
             evaluationResultService.getAllByUserId(userId));
     }
     @ResponseStatus(HttpStatus.OK)
@@ -57,9 +59,9 @@ public class EvaluationResultController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/evaluations-result")
-    public ApiResponse<EvaluationResultDto> createEvaluationResult(@RequestBody @Valid CreateEvaluationResultDto dto) throws Exception {
+    public ApiResponse<EvaluationResultDto> createEvaluationResult(@RequestBody @Valid CreateEvaluationResultDto dto, @RequestParam MultipartFile file) throws Exception {
         return new ApiResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
-                evaluationResultService.createEvaluationResult(dto));
+                evaluationResultService.createEvaluationResult(dto, file));
     }
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/evaluations-result/{id}")

@@ -15,7 +15,7 @@ public interface EvaluationResultService {
     List<EvaluationResultDto> getAllByUserId(Integer userId);
     List<EvaluationResultDto> getAllByCatId(Integer catId);
     List<EvaluationResultDto> getAllByEvFoodId(Integer evFoodId);
-    EvaluationResultDto createEvaluationResult(CreateEvaluationResultDto dto) throws Exception;
+    EvaluationResultDto createEvaluationResult(CreateEvaluationResultDto dto, MultipartFile file) throws Exception;
     EvaluationResultDto updateEvaluationResult(CreateEvaluationResultDto dto, Integer id) throws Exception;
     EvaluationResultDto updateEvaluationResultPicture(MultipartFile dto, Integer id) throws IOException;
 }
