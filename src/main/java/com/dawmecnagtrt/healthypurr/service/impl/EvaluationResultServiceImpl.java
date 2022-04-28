@@ -141,6 +141,7 @@ public class EvaluationResultServiceImpl implements EvaluationResultService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public EvaluationResult getEvaluationResultEntity(Integer id) {
         return evaluationResultRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Evaluation Result with id: " + id +" not found"));
     }
