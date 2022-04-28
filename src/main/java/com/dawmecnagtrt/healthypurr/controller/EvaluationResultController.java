@@ -79,8 +79,8 @@ public class EvaluationResultController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/evaluations-result/{id}/picture")
-    public ResponseEntity<?> getFotEvaluation(@PathVariable Integer evaluationId)  {
-        EvaluationResult optional = evaluationResultService.getEvaluationResultEntity(evaluationId);
+    public ResponseEntity<?> getFotEvaluation(@PathVariable Integer id)  {
+        EvaluationResult optional = evaluationResultService.getEvaluationResultEntity(id);
         if(optional.getEvaluationPic() != null){
             Resource imagen = new ByteArrayResource(optional.getEvaluationPic());
             return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
