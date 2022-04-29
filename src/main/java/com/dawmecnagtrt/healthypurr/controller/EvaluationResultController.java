@@ -59,9 +59,9 @@ public class EvaluationResultController {
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/evaluations-result")
-    public ApiResponse<EvaluationResultDto> createEvaluationResult(@RequestBody @Valid CreateEvaluationResultDto dto, @RequestParam MultipartFile file) throws Exception {
+    public ApiResponse<EvaluationResultDto> createEvaluationResult(@RequestBody @Valid CreateEvaluationResultDto dto) throws Exception {
         return new ApiResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
-                evaluationResultService.createEvaluationResult(dto, file));
+                evaluationResultService.createEvaluationResult(dto));
     }
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/evaluations-result/{id}")
