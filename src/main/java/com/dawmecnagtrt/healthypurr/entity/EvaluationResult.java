@@ -32,7 +32,7 @@ public class EvaluationResult extends CommonEntity{
     @JoinColumn(name = "cat_id", nullable = false)
     private Cat cat;
 
-    @Column(precision=3, scale=3, name = "accuracy_rate")
+    @Column(precision=4, scale=3, name = "accuracy_rate")
     private BigDecimal accuracyRate;
 
     @Column(nullable = false)
