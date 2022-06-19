@@ -21,7 +21,7 @@ public class HealthyPurrApplication {
     }
     
     @Bean
-	public WebMvcConfigurer corsConfigurer() {
+    public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
@@ -29,6 +29,6 @@ public class HealthyPurrApplication {
 				.allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS");
 			}
 		};
-	}
+     }
 
 }
