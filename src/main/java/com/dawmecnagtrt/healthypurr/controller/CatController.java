@@ -22,23 +22,25 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@SecurityRequirement(name = "usePurrApi")
 public class CatController {
     @Autowired
     CatService catService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/cats")
+    @SecurityRequirement(name = "usePurrApi")
     public ApiResponse<List<CatDto>> getAllCats(){return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
             catService.getAll()); }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("cats/{catId}")
+    @SecurityRequirement(name = "usePurrApi")
     public ApiResponse<CatDto> getCatById(@PathVariable Integer catId) throws EntityNotFoundException {
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
                 catService.getCat(catId));
     }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/users/{userId}/cats")
+    @SecurityRequirement(name = "usePurrApi")
     public ApiResponse<List<CatDto>> getAllCatsByUserId(@PathVariable Integer userId){return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
             catService.getAllByUserId(userId)); }
 
@@ -56,24 +58,28 @@ public class CatController {
     }
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/cats/{catId}/picture")
+    @SecurityRequirement(name = "usePurrApi")
     public ResponseEntity<?> updateCatPicture(@PathVariable Integer catId ,@RequestParam MultipartFile file) throws Exception {
         Resource imagen = new ByteArrayResource(catService.updateCatPicture(file, catId));
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
     }
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/users/{userId}/cats")
+    @SecurityRequirement(name = "usePurrApi")
     public ApiResponse<CatDto> createCat(@PathVariable Integer userId, @RequestBody @Valid CreateCatDto dto) throws Exception {
         return new ApiResponse<>("Success",String.valueOf(HttpStatus.OK),"OK",
                 catService.createCat(dto, userId));
     }
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/cats/{catId}")
+    @SecurityRequirement(name = "usePurrApi")
     public ApiResponse<CatDto> UpdateCatById(@RequestBody @Valid CreateCatDto dto, @PathVariable Integer catId) throws Exception{
         return new ApiResponse<>("Success", String.valueOf(HttpStatus.OK),"OK",
                 catService.updateCat(dto,catId));
     }
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/cats/{catId}/delete")
+    @SecurityRequirement(name = "usePurrApi")
     public String deleteCat(@PathVariable Integer catId){
         return catService.deleteCat(catId);
     }
